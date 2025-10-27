@@ -5956,13 +5956,27 @@ function mostrarMensaje(mensaje, tipo = "success") {
   }, 5000);
 }
 
-// Limpiar los campos de un formulario
+// =============================
+// FUNCIÓN PARA LIMPIAR CAMPOS DEL FORMULARIO ACTUAL
+// =============================
 function limpiarFormulario(vista) {
+  // Determinar qué campos conservar según la vista actual
+  const camposExcluidos = vista.id.startsWith("viewParte")
+    ? ["CodigoUnico", "fecha", "semana", "hora"]
+    : ["CodigoUnicoCA", "fechaCA", "SemanaCA"];
+
+  // Recorre todos los campos de la vista actual
   vista.querySelectorAll("input, select, textarea").forEach(el => {
-    if (!["fecha", "hora", "CodigoUnico","CodigoUnicoCA"].includes(el.id)) {
-      if (el.type === "checkbox" || el.type === "radio") el.checked = false;
-      else if (el.tagName.toLowerCase() === "select") el.selectedIndex = 0;
-      else el.value = "";
+    // Si el campo está en la lista de excluidos → no lo limpies
+    if (camposExcluidos.includes(el.id)) return;
+
+    // Limpieza según el tipo de campo
+    if (el.type === "checkbox" || el.type === "radio") {
+      el.checked = false;
+    } else if (el.tagName.toLowerCase() === "select") {
+      el.selectedIndex = 0;
+    } else {
+      el.value = "";
     }
   });
 }
@@ -6097,3 +6111,4 @@ document.getElementById("enviarBtn2").addEventListener("click", (e) => {
     "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/044b35f2957e4f09993d645b7c946ebf/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m1y-2obOZX_EG4XwdLBCCyyiCqJqxFQT8HB6crZmYWs"
   );
 });
+
