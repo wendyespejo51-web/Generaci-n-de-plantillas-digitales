@@ -1,3 +1,10 @@
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("./service-worker.js")
+    .then(() => console.log("Service Worker registrado correctamente."))
+    .catch((err) => console.log("Error al registrar el Service Worker:", err));
+}
+
 // =============================
 // Variables principales
 // =============================
@@ -6111,4 +6118,5 @@ document.getElementById("enviarBtn2").addEventListener("click", (e) => {
     "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/044b35f2957e4f09993d645b7c946ebf/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m1y-2obOZX_EG4XwdLBCCyyiCqJqxFQT8HB6crZmYWs"
   );
 });
+
 
