@@ -3290,12 +3290,13 @@
     <legend>Datos del trabajo</legend>
 
     <label for="TipoProteccion">Tipo de protección efectuada</label>
-      <select id="TipoProteccion" name="TipoProteccion">
+      <select id="TipoProteccion" name="TipoProteccion" required>
       <option value="" disabled selected hidden>Seleccione el tipo</option>
       <option value="Direccional">Direccional</option>
       <option value="No direccional">No direccional</option>
       <option value="Bloqueado">Bloqueado</option>
-      <option value="Relé retirado">Relé retirado</option>
+      <option value="Retirado">Relé retirado</option>
+	  <option value="NN">Sin bobina (NN)</option>
     </select>
 
     <label for="OtrasObservaciones">Trabajo efectuado</label>
@@ -4190,5 +4191,6 @@
 </body>
 
 </html>
+
 
 
