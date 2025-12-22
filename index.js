@@ -6809,10 +6809,11 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
     enviarFormulario(
         e.target,
         [
-          "CodigoUnicoPS", "TensionRC", "AlimentadorRC", "RC", "CircuitoPS", "PDS", "fechaPS", "SemanaPS", "horaPS", "ProtocoloRC", "Nombre1PS", "Correo1PS", "Nombre2PS", "Correo2PS", "MarcaRC", "CapacidadRC", "CapRupturaRC", "MExtinsionRC", "NSerieRC", "TNominalRC", "FuenteCargaRC", "SecuenciaFasesRC","AnoRC", "Kardex1RC", "Kardex2RC", "MarcaPS", "ModeloReleRC", "NSerieReleRC", 
+          "CodigoUnicoPS", "TensionRC", "AlimentadorRC", "RC", "equipoPS","CircuitoPS", "PDS", "fechaPS", "SemanaPS", "horaPS", "ProtocoloRC", "Nombre1PS", "Correo1PS", "Nombre2PS", "Correo2PS", "MarcaRC", "CapacidadRC", "CapRupturaRC", "MExtinsionRC", "NSerieRC", "TNominalRC", "FuenteCargaRC", "SecuenciaFasesRC","AnoRC", "Kardex1RC", "Kardex2RC", "MarcaPS", "ModeloReleRC", "NSerieReleRC", 
           "AlimentacionControlRele", "Modem", "IPRele", "IPRouter", "ClaveRouter", "ClaveWifi", "I5150P", "Curva5150P", "T5150P", "I5150P2", "T5150P2", "Funcion67P1", "Curva67P1", "Direc67P1", "Ang67P1", "T67P1", "Io67N1", "Curva67N1", "ForRev67N1", "Ang67N1", "To67N1", "Funcion3v067N1", "Io67N2", "Curva67N2", "ForRev67N2", "Ang67N2", "To67N2", "Funcion3v067N2", "Io5150N", "Curva5150N", 
           "T05150N", "Io5150N2", "To5150N2", "Funcion3vo59N", "T59N", "TransformadorPropio", "ServicioParticular", "AjusteTermicoBT", "Controldereconectador", "AjusteProteccionCorrecta", "BotonOnOff", "SujecionCableCA", "TierraMT", "TierraBT", "PuestaenServicio", "RevisionPeriodica", "InstalacionComponente", "AjusteOscilografia", "CorrienteHMI", "BotonOnOff2", "ObservacionesRC"
         ],
         "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34b57ed7099a42ff9a2fc50790a44655/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0TtJ_sOw1kk8vQm-9uU1VNHBCyJPm8uuId6cAsaQjpQ"
     );
+
 });
