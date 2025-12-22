@@ -1,5 +1,5 @@
 // 1. Usa una variable y cámbiala (por ejemplo, de 'v1' a 'v2')
-const CACHE_NAME = 'mi-app-cache-v2'; 
+const CACHE_NAME = 'mi-app-cache-v4'; 
 
 const urlsToCache = [
   './',
