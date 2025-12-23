@@ -1,7 +1,7 @@
 {
   "name": "Plantillas digitales - Luz del sur",
   "short_name": "Plantillas digitales",
-  "start_url": "/Generaci-n-de-plantillas-digitales/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#fff225",
