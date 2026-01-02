@@ -1,0 +1,22 @@
+{
+  "name": "Plantillas digitales - Luz del sur",
+  "short_name": "Plantillas digitales",
+  "start_url": "/Generaci-n-de-plantillas-digitales/",
+  "scope": "/Generaci-n-de-plantillas-digitales/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#fff225",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "iconoapp.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "iconoapp.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
