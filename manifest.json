@@ -8,15 +8,15 @@
   "theme_color": "#fff225",
   "orientation": "portrait",
   "icons": [
-    {
-      "src": "iconoapp.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "iconoapp.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  {
+    "src": "/Generaci-n-de-plantillas-digitales/iconoapp.png",
+    "sizes": "192x192",
+    "type": "image/png"
+  },
+  {
+    "src": "/Generaci-n-de-plantillas-digitales/iconoapp.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }
+]
 }
