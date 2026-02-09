@@ -5174,7 +5174,7 @@ async function cargarHistorial(force = false)  {
     const response = await fetch('https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/96f54f3519fe4103a06ff43041ea6c67/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2mY86UW0eVHyITHt35jFWbgo2Oet1CH6BJUy91Cbjcs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ dias: 7 })
+      body: JSON.stringify({ dias: 60 })
     });
 
     const result = await response.json();
@@ -8605,4 +8605,5 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
         ],
         "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34b57ed7099a42ff9a2fc50790a44655/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0TtJ_sOw1kk8vQm-9uU1VNHBCyJPm8uuId6cAsaQjpQ"
     );
+
 });
