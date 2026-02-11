@@ -15,7 +15,6 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Usamos comillas dobles para proteger la URL del secreto
           sed -i "s|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g" index.js
           sed -i "s|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g" index.js
           sed -i "s|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g" index.js
@@ -23,8 +22,6 @@ jobs:
           sed -i "s|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g" index.js
           sed -i "s|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g" index.js
           sed -i "s|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g" index.js
-          
-          echo "Inyección completada. No se realizan verificaciones de texto para evitar errores con caracteres especiales en las URLs."
           
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
