@@ -15,15 +15,15 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Reemplazo de los 7 marcadores en tu archivo JS
-          # Asegúrate de que 'index.js' sea el correcto
-          sed -i 's|"FLOW_GENERAR_PLANTILLA_PP"|"${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}"|g' index.js
-          sed -i 's|"FLOW_GENERAR_PLANTILLA_PS"|"${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}"|g' index.js
-          sed -i 's|"FLOW_GENERAR_PLANTILLA_CA"|"${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}"|g' index.js
+          # Usamos comillas dobles para que el secreto se lea bien, 
+          # pero buscamos la palabra clave sin comillas para que sea total el reemplazo.
+          sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' index.js
+          sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' index.js
+          sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' index.js
           sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' index.js
           sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' index.js
           sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' index.js
-          sed -i 's|"FLOW_RELLENAR_AJUSTES_RECOMENDADOS"|"${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}"|g' index.js
+          sed -i 's|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g' index.js
 
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
