@@ -1,5 +1,4 @@
 name: Deploy App
-
 on:
   push:
     branches: [ main ]
@@ -10,18 +9,19 @@ jobs:
     steps:
       - name: Checkout del codigo
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Reemplazo Seguro con Node
+      - name: Reemplazo con Node (Version Forzada)
         run: |
           node -e "
           const fs = require('fs');
           const fileName = 'index.js';
-          if (!fs.existsSync(fileName)) {
-            console.error('❌ ERROR: No se encuentra el archivo index.js');
-            process.exit(1);
-          }
           let content = fs.readFileSync(fileName, 'utf8');
           
+          // Imprimimos el tamaño inicial
+          console.log('Tamaño inicial:', content.length);
+
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
             'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
@@ -32,27 +32,27 @@ jobs:
             'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
           };
 
-          console.log('--- Iniciando Reemplazo ---');
           for (const [key, value] of Object.entries(replacements)) {
-            if (!value) {
-              console.warn('⚠️ Advertencia: El secreto para ' + key + ' esta vacio en GitHub Settings');
-              continue;
-            }
-            
-            // Usamos un Regex que busca la palabra sola o entre comillas
-            const regex = new RegExp('[\'\"`]?'+key+'[\'\"`]?', 'g');
-            
-            if (content.includes(key)) {
-              // Reemplazamos la palabra clave por la URL (entre comillas)
-              content = content.replace(regex, \"'\" + value + \"'\");
-              console.log('✅ EXITO: Inyectada URL para: ' + key);
-            } else {
-              console.error('❌ ERROR: No se encontro la palabra ' + key + ' dentro de index.js');
+            if (value && value.trim().length > 0) {
+              // Limpiamos la URL de comillas si es que el Secreto las trae
+              const cleanUrl = value.replace(/['\"]/g, '');
+              
+              // REEMPLAZO AGRESIVO: Buscamos la palabra con o sin comillas
+              const regex = new RegExp('[\'\"`]?'+key+'[\'\"`]?', 'g');
+              content = content.replace(regex, \"'\" + cleanUrl + \"'\");
+              
+              console.log('✅ Procesado: ' + key);
             }
           }
           
           fs.writeFileSync(fileName, content);
-          console.log('--- Proceso Finalizado ---');
+          console.log('--- ARCHIVO GUARDADO ---');
+          
+          // VERIFICACION: ¿Sigue la palabra ahi?
+          if (content.includes('FLOW_HISTORIAL_REGISTROS')) {
+             console.error('❌ ERROR FATAL: La palabra sigue en el contenido');
+             process.exit(1);
+          }
           "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
@@ -66,6 +66,6 @@ jobs:
       - name: Deploy a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: .        # Asegúrate de que sea un punto solo
           branch: gh-pages
           clean: true
