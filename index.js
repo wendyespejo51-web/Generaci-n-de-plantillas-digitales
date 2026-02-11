@@ -5238,7 +5238,7 @@ async function cargarDetalleRegistro(id, lista, tipoFormulario) {
     console.log("Consultando flujo para detalle:", id);
 
     const response = await fetch(
-      "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e178a5f7484446d09f5da7980c8e137e/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=wdeTopccIvthZUTfP-rJnCdsvp03ITtB0z4HTbNAzN4",
+      "FLOW_REGISTROS_DETALLE",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -5689,7 +5689,7 @@ async function cargarDatosFormulario(id, tipo) {
   console.log("Llamando flujo edición con:", { id, tipo });
 
   const response = await fetch(
-    "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/445a1a5a174a4240b35685d4874a4df2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dfiIc-2NahHIXXSQKFT7VdZeF_o0pwd-KQGbfGBqAX0",
+    "FLOW_MODIFICAR_REGISTRO_EXISTENTE",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -7756,7 +7756,7 @@ async function obtenerDatosDesdeFlujo(payload) {
     return null;   // No rompe lógica aguas abajo
   }
 
-  const urlFlujo = "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/2814051425604f6290304a11b63686cf/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7lR5vpJvXZsqk05SXTMvHYuxoBTkMbhjnII6FNdXEGU";
+  const urlFlujo = "FLOW_RELLENAR_AJUSTES_RECOMENDADOS";
 
   const response = await fetch(urlFlujo, {
     method: "POST",
@@ -8484,7 +8484,7 @@ document.getElementById("enviarBtn").addEventListener("click", (e) => {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
     ],
-    "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e30b9abb12584fbaa6939129547bb248/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2ONLDOmbTWMdxkm4zDsj2Sd0P7zcPx1078HJmoEHMlo"
+    "FLOW_GENERAR_PLANTILLA_PP"
   );
 });
 
@@ -8508,7 +8508,7 @@ document.getElementById("enviarBtn2").addEventListener("click", (e) => {
       "DelayTime50NRealizado", "DirectionalMode50NRealizado", "Characteristic50NRealizado", "Voltage50NRealizado", "Observaciones50N", "CurveType51NSolicitado", "StartValue51NSolicitado", "Time51NSolicitado", "DelayTime51NSolicitado", "CurveType51NRealizado", "StartValue51NRealizado", "Time51NRealizado", "DelayTime51NRealizado", "Observaciones51N",
       "StartValue59N1Solicitado", "DelayTime59N1Solicitado", "StartValue59N1Realizado", "DelayTime59N1Realizado", "Observaciones59N1", "StartValue59N2Solicitado", "DelayTime59N2Solicitado", "StartValue59N2Realizado", "DelayTime59N2Realizado", "Observaciones59N2", "fechaCA", "SemanaCA", "Nombre1CA", "Correo1CA", "Nombre2CA", "Correo2CA"
     ],
-    "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/044b35f2957e4f09993d645b7c946ebf/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m1y-2obOZX_EG4XwdLBCCyyiCqJqxFQT8HB6crZmYWs"
+    "FLOW_GENERAR_PLANTILLA_CA"
   );
 });
 
@@ -8575,7 +8575,7 @@ if (btnEnviarParte3) {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
       ],
-      "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e30b9abb12584fbaa6939129547bb248/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=2ONLDOmbTWMdxkm4zDsj2Sd0P7zcPx1078HJmoEHMlo"
+      "FLOW_GENERAR_PLANTILLA_PP"
     );
 
     const camposChecklistPreguntas = [
@@ -8603,7 +8603,7 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
           "AlimentacionControlRele", "Modem", "IPRele", "IPRouter", "ClaveRouter", "ClaveWifi", "I5150P", "Curva5150P", "T5150P", "I5150P2", "T5150P2", "Funcion67P1", "Curva67P1", "Direc67P1", "Ang67P1", "T67P1", "Io67N1", "Curva67N1", "ForRev67N1", "Ang67N1", "To67N1", "Funcion3v067N1", "Io67N2", "Curva67N2", "ForRev67N2", "Ang67N2", "To67N2", "Funcion3v067N2", "Io5150N", "Curva5150N", 
           "T05150N", "Io5150N2", "To5150N2", "Funcion3vo59N", "T59N", "BT", "MT","TransformadorPropio", "ServicioParticular", "TensionAlimentacionSP","AjusteTermicoBT", "Controldereconectador", "AjusteProteccionCorrecta", "BotonOnOff", "SujecionCableCA", "TierraMT", "TierraBT", "PuestaenServicio", "RevisionPeriodica", "InstalacionComponente", "AjusteOscilografia", "CorrienteHMI", "BotonOnOff2", "ObservacionesRC"
         ],
-        "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34b57ed7099a42ff9a2fc50790a44655/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0TtJ_sOw1kk8vQm-9uU1VNHBCyJPm8uuId6cAsaQjpQ"
+        "FLOW_GENERAR_PLANTILLA_PS"
     );
 
 });
