@@ -5171,7 +5171,7 @@ async function cargarHistorial(force = false)  {
   mostrarLoaderHistorial();
 
   try {
-    const response = await fetch('https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/96f54f3519fe4103a06ff43041ea6c67/triggers/manual/paths/invoke?api-version=1FLOW_HISTORIAL_REGISTROSsp=%2Ftriggers%2Fmanual%2FrunFLOW_HISTORIAL_REGISTROSsv=1.0FLOW_HISTORIAL_REGISTROSsig=2mY86UW0eVHyITHt35jFWbgo2Oet1CH6BJUy91Cbjcs', {
+    const response = await fetch("https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/96f54f3519fe4103a06ff43041ea6c67/triggers/manual/paths/invoke?api-version=1FLOW_HISTORIAL_REGISTROSsp=%2Ftriggers%2Fmanual%2FrunFLOW_HISTORIAL_REGISTROSsv=1.0FLOW_HISTORIAL_REGISTROSsig=2mY86UW0eVHyITHt35jFWbgo2Oet1CH6BJUy91Cbjcs", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dias: 7 })
@@ -5238,7 +5238,7 @@ async function cargarDetalleRegistro(id, lista, tipoFormulario) {
     console.log("Consultando flujo para detalle:", id);
 
     const response = await fetch(
-      'https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e178a5f7484446d09f5da7980c8e137e/triggers/manual/paths/invoke?api-version=1FLOW_REGISTROS_DETALLEsp=%2Ftriggers%2Fmanual%2FrunFLOW_REGISTROS_DETALLEsv=1.0FLOW_REGISTROS_DETALLEsig=wdeTopccIvthZUTfP-rJnCdsvp03ITtB0z4HTbNAzN4',
+      "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/e178a5f7484446d09f5da7980c8e137e/triggers/manual/paths/invoke?api-version=1FLOW_REGISTROS_DETALLEsp=%2Ftriggers%2Fmanual%2FrunFLOW_REGISTROS_DETALLEsv=1.0FLOW_REGISTROS_DETALLEsig=wdeTopccIvthZUTfP-rJnCdsvp03ITtB0z4HTbNAzN4",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -5689,7 +5689,7 @@ async function cargarDatosFormulario(id, tipo) {
   console.log("Llamando flujo edición con:", { id, tipo });
 
   const response = await fetch(
-    'https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/445a1a5a174a4240b35685d4874a4df2/triggers/manual/paths/invoke?api-version=1FLOW_MODIFICAR_REGISTRO_EXISTENTEsp=%2Ftriggers%2Fmanual%2FrunFLOW_MODIFICAR_REGISTRO_EXISTENTEsv=1.0FLOW_MODIFICAR_REGISTRO_EXISTENTEsig=dfiIc-2NahHIXXSQKFT7VdZeF_o0pwd-KQGbfGBqAX0',
+    "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/445a1a5a174a4240b35685d4874a4df2/triggers/manual/paths/invoke?api-version=1FLOW_MODIFICAR_REGISTRO_EXISTENTEsp=%2Ftriggers%2Fmanual%2FrunFLOW_MODIFICAR_REGISTRO_EXISTENTEsv=1.0FLOW_MODIFICAR_REGISTRO_EXISTENTEsig=dfiIc-2NahHIXXSQKFT7VdZeF_o0pwd-KQGbfGBqAX0",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -8605,4 +8605,5 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
         ],
         "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34b57ed7099a42ff9a2fc50790a44655/triggers/manual/paths/invoke?api-version=1FLOW_GENERAR_PLANTILLA_PSsp=%2Ftriggers%2Fmanual%2FrunFLOW_GENERAR_PLANTILLA_PSsv=1.0FLOW_GENERAR_PLANTILLA_PSsig=0TtJ_sOw1kk8vQm-9uU1VNHBCyJPm8uuId6cAsaQjpQ"
     );
+
 });
