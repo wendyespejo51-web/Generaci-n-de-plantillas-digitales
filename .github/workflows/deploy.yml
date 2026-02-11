@@ -12,16 +12,14 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Reemplazo con Node (Version Forzada)
+      - name: Reemplazo Seguro (Metodo Stream)
         run: |
           node -e "
           const fs = require('fs');
           const fileName = 'index.js';
+          
           let content = fs.readFileSync(fileName, 'utf8');
           
-          // Imprimimos el tamaño inicial
-          console.log('Tamaño inicial:', content.length);
-
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
             'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
@@ -32,27 +30,37 @@ jobs:
             'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
           };
 
+          console.log('--- Iniciando Reemplazo ---');
+          
           for (const [key, value] of Object.entries(replacements)) {
             if (value && value.trim().length > 0) {
-              // Limpiamos la URL de comillas si es que el Secreto las trae
-              const cleanUrl = value.replace(/['\"]/g, '');
+              const cleanUrl = value.replace(/['\"`]/g, '');
               
-              // REEMPLAZO AGRESIVO: Buscamos la palabra con o sin comillas
-              const regex = new RegExp('[\'\"`]?'+key+'[\'\"`]?', 'g');
-              content = content.replace(regex, \"'\" + cleanUrl + \"'\");
-              
+              // Buscamos todas las variaciones posibles de la palabra con comillas
+              const possibleKeys = [
+                \"'\" + key + \"'\",
+                '\"' + key + '\"',
+                '`' + key + '`',
+                key
+              ];
+
+              for (const pKey of possibleKeys) {
+                if (content.includes(pKey)) {
+                  // Reemplazo simple de texto (sin Regex para evitar RangeError)
+                  content = content.split(pKey).join(\"'\" + cleanUrl + \"'\");
+                }
+              }
               console.log('✅ Procesado: ' + key);
             }
           }
-          
+
           fs.writeFileSync(fileName, content);
-          console.log('--- ARCHIVO GUARDADO ---');
           
-          // VERIFICACION: ¿Sigue la palabra ahi?
           if (content.includes('FLOW_HISTORIAL_REGISTROS')) {
-             console.error('❌ ERROR FATAL: La palabra sigue en el contenido');
-             process.exit(1);
+            console.error('❌ ERROR: No se pudo eliminar la palabra clave');
+            process.exit(1);
           }
+          console.log('--- Archivo guardado correctamente ---');
           "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
