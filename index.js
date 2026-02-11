@@ -11,8 +11,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-require('dotenv').config();
-
 // =============================
 // ESTADO GLOBAL
 // =============================
@@ -8608,4 +8606,5 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
         ],
         "https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/34b57ed7099a42ff9a2fc50790a44655/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=0TtJ_sOw1kk8vQm-9uU1VNHBCyJPm8uuId6cAsaQjpQ"
     );
+
 });
