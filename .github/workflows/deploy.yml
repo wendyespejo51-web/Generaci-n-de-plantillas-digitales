@@ -1,40 +1,23 @@
-name: Deploy con Diagnostico
-on:
-  push:
-    branches: [ main ]
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Diagnostico y Reemplazo
+- name: Reemplazo Seguro con Node
         run: |
-          echo "--- REVISANDO ARCHIVOS ---"
-          ls -R
+          node -e "
+          const fs = require('fs');
+          const fileName = 'index.js';
+          let content = fs.readFileSync(fileName, 'utf8');
           
-          echo "--- PROBANDO SECRETO (No se mostrara el valor real) ---"
-          if [ -z "${{ secrets.FLOW_HISTORIAL_REGISTROS }}" ]; then
-            echo "ERROR: El secreto FLOW_HISTORIAL_REGISTROS esta vacio o no existe en Settings"
-            exit 1
-          fi
-
-          echo "--- EJECUTANDO REEMPLAZO ---"
-          # Usamos un comando mas agresivo
-          sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' index.js
+          // Traemos el secreto desde el entorno para que sea texto puro
+          const urlHistorial = process.env.URL_HISTORIAL;
           
-          echo "--- VERIFICANDO SI LA PALABRA SIGUE AHI ---"
-          if grep -q "FLOW_HISTORIAL_REGISTROS" index.js; then
-            echo "ERROR: La palabra no se pudo reemplazar"
-            exit 1
-          else
-            echo "EXITO: La palabra fue reemplazada en index.js"
-          fi
+          if (!urlHistorial) {
+            console.error('ERROR: El secreto no llego al script');
+            process.exit(1);
+          }
 
-      - name: Deploy a GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: .
-          branch: gh-pages
+          // Reemplazo total usando split/join (el metodo mas seguro para caracteres especiales)
+          const newContent = content.split('FLOW_HISTORIAL_REGISTROS').join(urlHistorial);
+          
+          fs.writeFileSync(fileName, newContent);
+          console.log('Reemplazo completado con exito');
+          "
+        env:
+          URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
