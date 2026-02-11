@@ -10,11 +10,12 @@ jobs:
       - name: Checkout del codigo
         uses: actions/checkout@v4
 
-      - name: Reemplazo con Rastreo Total
+      - name: Reemplazo Seguro (Fuerza Bruta)
         shell: node {0}
         run: |
           const fs = require('fs');
-          const path = require('path');
+          const fileName = 'index.js';
+          let content = fs.readFileSync(fileName, 'utf8');
 
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
@@ -26,43 +27,21 @@ jobs:
             'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
           };
 
-          // Función para buscar y reemplazar en todos los archivos .js
-          function walk(dir) {
-            fs.readdirSync(dir).forEach(file => {
-              const fullPath = path.join(dir, file);
-              if (fs.lstatSync(fullPath).isDirectory()) {
-                if (!fullPath.includes('node_modules') && !fullPath.includes('.git')) {
-                  walk(fullPath);
-                }
-              } else if (fullPath.endsWith('.js')) {
-                let content = fs.readFileSync(fullPath, 'utf8');
-                let changed = false;
+          console.log('--- Iniciando Reemplazo ---');
+          
+          Object.entries(replacements).forEach(([key, value]) => {
+            if (value && value.length > 10) {
+              const cleanUrl = value.replace(/['"`]/g, '');
+              // REEMPLAZO CLAVE:
+              // Buscamos la palabra suelta y la convertimos en una URL con comillas
+              // Ejemplo: fetch(FLOW_HISTORIAL_REGISTROS) -> fetch('https://...')
+              content = content.split(key).join("'" + cleanUrl + "'");
+              console.log('✅ ' + key + ' inyectado correctamente');
+            }
+          });
 
-                Object.entries(replacements).forEach(([key, value]) => {
-                  if (value && value.length > 10 && content.includes(key)) {
-                    const cleanUrl = value.replace(/['"`]/g, '');
-                    const patterns = ["'" + key + "'", '"' + key + '"', '`' + key + '`', key];
-                    
-                    patterns.forEach(p => {
-                      if (content.includes(p)) {
-                        content = content.split(p).join("'" + cleanUrl + "'");
-                        changed = true;
-                      }
-                    });
-                  }
-                });
-
-                if (changed) {
-                  fs.writeFileSync(fullPath, content);
-                  console.log('✅ MODIFICADO: ' + fullPath);
-                }
-              }
-            });
-          }
-
-          console.log('--- Iniciando Rastreo de Archivos ---');
-          walk('.'); 
-          console.log('--- Proceso Finalizado ---');
+          fs.writeFileSync(fileName, content);
+          console.log('--- Archivo guardado ---');
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
           URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
