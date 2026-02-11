@@ -15,27 +15,17 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          node -e "
-          const fs = require('fs');
-          let content = fs.readFileSync('index.js', 'utf8');
-          
-          const replacements = {
-            'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL
-          };
-
-          for (const [key, value] of Object.entries(replacements)) {
-            if (!value || value.trim() === '') {
-              console.error('ERROR CRÍTICO: El secreto ' + key + ' está VACÍO en GitHub Secrets');
-              process.exit(1);
-            }
-            console.log('Reemplazando ' + key + '...');
-            content = content.split(key).join(value);
-          }
-          
-          fs.writeFileSync('index.js', content);
+          # Usamos un comando de Python que es mucho más estable para URLs largas que sed
+          python3 -c "
+          import os, sys
+          content = open('index.js').read()
+          # Reemplazamos la palabra clave por el valor del Secreto
+          content = content.replace('FLOW_HISTORIAL_REGISTROS', os.environ['URL_HIST'])
+          with open('index.js', 'w') as f:
+              f.write(content)
           "
         env:
-          URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
+          URL_HIST: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
           
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
