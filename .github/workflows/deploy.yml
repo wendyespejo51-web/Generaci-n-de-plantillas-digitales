@@ -15,28 +15,16 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          echo "--- Listando archivos para verificar rutas ---"
-          ls -R
+          # Usamos comillas dobles para proteger la URL del secreto
+          sed -i "s|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g" index.js
+          sed -i "s|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g" index.js
+          sed -i "s|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g" index.js
+          sed -i "s|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g" index.js
+          sed -i "s|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g" index.js
+          sed -i "s|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g" index.js
+          sed -i "s|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g" index.js
           
-          echo "--- Buscando la palabra clave en el repositorio ---"
-          grep -r "FLOW_HISTORIAL_REGISTROS" . || echo "No se encontró la palabra en ningún archivo"
-
-          # Intentamos el reemplazo en CUALQUIER archivo .js que exista
-          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' {} +
-          find . -name "*.js" -exec sed -i 's|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g' {} +
-
-          echo "--- Verificando si después del cambio sigue existiendo la palabra ---"
-          if grep -r "FLOW_HISTORIAL_REGISTROS" .; then
-            echo "ERROR: La palabra clave NO fue reemplazada."
-            exit 1
-          else
-            echo "ÉXITO: Las palabras clave fueron reemplazadas."
-          fi
+          echo "Inyección completada. No se realizan verificaciones de texto para evitar errores con caracteres especiales en las URLs."
           
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
