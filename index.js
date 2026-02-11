@@ -5172,7 +5172,7 @@ async function cargarHistorial(force = false)  {
 
   try {
     const response = await fetch("FLOW_HISTORIAL_REGISTROS", {
-      method: 'POST',
+      method: '',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dias: 7 })
     });
@@ -5240,7 +5240,7 @@ async function cargarDetalleRegistro(id, lista, tipoFormulario) {
     const response = await fetch(
       "FLOW_REGISTROS_DETALLE",
       {
-        method: "POST",
+        method: "",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, lista })
       }
@@ -5691,7 +5691,7 @@ async function cargarDatosFormulario(id, tipo) {
   const response = await fetch(
     "FLOW_MODIFICAR_REGISTRO_EXISTENTE",
     {
-      method: "POST",
+      method: "",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, tipo })
     }
@@ -7759,7 +7759,7 @@ async function obtenerDatosDesdeFlujo(payload) {
   const urlFlujo = "FLOW_RELLENAR_AJUSTES_RECOMENDADOS";
 
   const response = await fetch(urlFlujo, {
-    method: "POST",
+    method: "",
     headers: {
       "Content-Type": "application/json"
     },
@@ -8607,3 +8607,4 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
     );
 
 });
+
