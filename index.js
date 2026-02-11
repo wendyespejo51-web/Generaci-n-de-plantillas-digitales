@@ -5171,7 +5171,7 @@ async function cargarHistorial(force = false)  {
   mostrarLoaderHistorial();
 
   try {
-    const response = await fetch("FLOW_HISTORIAL_REGISTROS", {
+    const response = await fetch(FLOW_HISTORIAL_REGISTROS, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dias: 7 })
@@ -5238,7 +5238,7 @@ async function cargarDetalleRegistro(id, lista, tipoFormulario) {
     console.log("Consultando flujo para detalle:", id);
 
     const response = await fetch(
-      "FLOW_REGISTROS_DETALLE",
+      FLOW_REGISTROS_DETALLE,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -5689,7 +5689,7 @@ async function cargarDatosFormulario(id, tipo) {
   console.log("Llamando flujo edición con:", { id, tipo });
 
   const response = await fetch(
-    "FLOW_MODIFICAR_REGISTRO_EXISTENTE",
+    FLOW_MODIFICAR_REGISTRO_EXISTENTE,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -7756,7 +7756,7 @@ async function obtenerDatosDesdeFlujo(payload) {
     return null;   // No rompe lógica aguas abajo
   }
 
-  const urlFlujo = "FLOW_RELLENAR_AJUSTES_RECOMENDADOS";
+  const urlFlujo = FLOW_RELLENAR_AJUSTES_RECOMENDADOS;
 
   const response = await fetch(urlFlujo, {
     method: "POST",
@@ -8484,7 +8484,7 @@ document.getElementById("enviarBtn").addEventListener("click", (e) => {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
     ],
-    "FLOW_GENERAR_PLANTILLA_PP"
+    FLOW_GENERAR_PLANTILLA_PP
   );
 });
 
@@ -8508,7 +8508,7 @@ document.getElementById("enviarBtn2").addEventListener("click", (e) => {
       "DelayTime50NRealizado", "DirectionalMode50NRealizado", "Characteristic50NRealizado", "Voltage50NRealizado", "Observaciones50N", "CurveType51NSolicitado", "StartValue51NSolicitado", "Time51NSolicitado", "DelayTime51NSolicitado", "CurveType51NRealizado", "StartValue51NRealizado", "Time51NRealizado", "DelayTime51NRealizado", "Observaciones51N",
       "StartValue59N1Solicitado", "DelayTime59N1Solicitado", "StartValue59N1Realizado", "DelayTime59N1Realizado", "Observaciones59N1", "StartValue59N2Solicitado", "DelayTime59N2Solicitado", "StartValue59N2Realizado", "DelayTime59N2Realizado", "Observaciones59N2", "fechaCA", "SemanaCA", "Nombre1CA", "Correo1CA", "Nombre2CA", "Correo2CA"
     ],
-    "FLOW_GENERAR_PLANTILLA_CA"
+    FLOW_GENERAR_PLANTILLA_CA
   );
 });
 
@@ -8575,7 +8575,7 @@ if (btnEnviarParte3) {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
       ],
-      "FLOW_GENERAR_PLANTILLA_PP"
+      FLOW_GENERAR_PLANTILLA_PP
     );
 
     const camposChecklistPreguntas = [
@@ -8603,10 +8603,11 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
           "AlimentacionControlRele", "Modem", "IPRele", "IPRouter", "ClaveRouter", "ClaveWifi", "I5150P", "Curva5150P", "T5150P", "I5150P2", "T5150P2", "Funcion67P1", "Curva67P1", "Direc67P1", "Ang67P1", "T67P1", "Io67N1", "Curva67N1", "ForRev67N1", "Ang67N1", "To67N1", "Funcion3v067N1", "Io67N2", "Curva67N2", "ForRev67N2", "Ang67N2", "To67N2", "Funcion3v067N2", "Io5150N", "Curva5150N", 
           "T05150N", "Io5150N2", "To5150N2", "Funcion3vo59N", "T59N", "BT", "MT","TransformadorPropio", "ServicioParticular", "TensionAlimentacionSP","AjusteTermicoBT", "Controldereconectador", "AjusteProteccionCorrecta", "BotonOnOff", "SujecionCableCA", "TierraMT", "TierraBT", "PuestaenServicio", "RevisionPeriodica", "InstalacionComponente", "AjusteOscilografia", "CorrienteHMI", "BotonOnOff2", "ObservacionesRC"
         ],
-        "FLOW_GENERAR_PLANTILLA_PS"
+        FLOW_GENERAR_PLANTILLA_PS
     );
 
 });
+
 
 
 
