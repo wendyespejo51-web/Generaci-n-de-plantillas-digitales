@@ -5171,7 +5171,7 @@ async function cargarHistorial(force = false)  {
   mostrarLoaderHistorial();
 
   try {
-    const response = await fetch('FLOW_HISTORIAL_REGISTROS', {
+    const response = await fetch("FLOW_HISTORIAL_REGISTROS", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dias: 7 })
@@ -5238,7 +5238,7 @@ async function cargarDetalleRegistro(id, lista, tipoFormulario) {
     console.log("Consultando flujo para detalle:", id);
 
     const response = await fetch(
-      'FLOW_REGISTROS_DETALLE',
+      "FLOW_REGISTROS_DETALLE",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -5689,7 +5689,7 @@ async function cargarDatosFormulario(id, tipo) {
   console.log("Llamando flujo edición con:", { id, tipo });
 
   const response = await fetch(
-    'FLOW_MODIFICAR_REGISTRO_EXISTENTE',
+    "FLOW_MODIFICAR_REGISTRO_EXISTENTE",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -8605,4 +8605,5 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
         ],
         "FLOW_GENERAR_PLANTILLA_PS"
     );
+
 });
