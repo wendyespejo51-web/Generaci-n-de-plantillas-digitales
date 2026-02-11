@@ -15,17 +15,39 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Usamos un comando de Python que es mucho más estable para URLs largas que sed
-          python3 -c "
-          import os, sys
-          content = open('index.js').read()
-          # Reemplazamos la palabra clave por el valor del Secreto
-          content = content.replace('FLOW_HISTORIAL_REGISTROS', os.environ['URL_HIST'])
-          with open('index.js', 'w') as f:
-              f.write(content)
+          node -e "
+          const fs = require('fs');
+          let content = fs.readFileSync('index.js', 'utf8');
+          
+          // Definimos los secretos desde el entorno
+          const replacements = {
+            'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
+            'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
+            'FLOW_GENERAR_PLANTILLA_PS': process.env.URL_PS,
+            'FLOW_GENERAR_PLANTILLA_CA': process.env.URL_CA,
+            'FLOW_REGISTROS_DETALLE': process.env.URL_DETALLE,
+            'FLOW_MODIFICAR_REGISTRO_EXISTENTE': process.env.URL_MODIFICA,
+            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
+          };
+
+          for (const [key, value] of Object.entries(replacements)) {
+            if (value && value.length > 10) {
+              console.log('Inyectando URL para: ' + key);
+              // Usamos split/join para evitar problemas con caracteres especiales como '&'
+              content = content.split(key).join(value);
+            }
+          }
+          
+          fs.writeFileSync('index.js', content);
           "
         env:
-          URL_HIST: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
+          URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
+          URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
+          URL_PS: ${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}
+          URL_CA: ${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}
+          URL_DETALLE: ${{ secrets.FLOW_REGISTROS_DETALLE }}
+          URL_MODIFICA: ${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}
+          URL_AJUSTES: ${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}
           
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
