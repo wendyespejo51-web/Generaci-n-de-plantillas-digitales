@@ -15,19 +15,27 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Buscamos la palabra pura. SED la encontrará aunque esté rodeada de " o '
-          sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' index.js
-          sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' index.js
-          sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' index.js
-          sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' index.js
-          sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' index.js
-          sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' index.js
-          sed -i 's|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g' index.js
+          echo "--- Listando archivos para verificar rutas ---"
+          ls -R
           
-          # Verificación de seguridad: si la palabra sigue ahí, el comando fallará y nos avisará
-          if grep -q "FLOW_HISTORIAL_REGISTROS" index.js; then
-            echo "ERROR: La palabra clave no fue reemplazada."
+          echo "--- Buscando la palabra clave en el repositorio ---"
+          grep -r "FLOW_HISTORIAL_REGISTROS" . || echo "No se encontró la palabra en ningún archivo"
+
+          # Intentamos el reemplazo en CUALQUIER archivo .js que exista
+          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' {} +
+          find . -name "*.js" -exec sed -i 's|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g' {} +
+
+          echo "--- Verificando si después del cambio sigue existiendo la palabra ---"
+          if grep -r "FLOW_HISTORIAL_REGISTROS" .; then
+            echo "ERROR: La palabra clave NO fue reemplazada."
             exit 1
+          else
+            echo "ÉXITO: Las palabras clave fueron reemplazadas."
           fi
           
       - name: Subir a GitHub Pages
