@@ -16,6 +16,10 @@ jobs:
           node -e "
           const fs = require('fs');
           const fileName = 'index.js';
+          if (!fs.existsSync(fileName)) {
+            console.error('❌ ERROR: No se encuentra el archivo index.js');
+            process.exit(1);
+          }
           let content = fs.readFileSync(fileName, 'utf8');
           
           const replacements = {
@@ -28,14 +32,27 @@ jobs:
             'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
           };
 
+          console.log('--- Iniciando Reemplazo ---');
           for (const [key, value] of Object.entries(replacements)) {
-            if (value && value.trim().length > 0) {
-              content = content.split(key).join(value);
-              console.log('Inyectada URL para: ' + key);
+            if (!value) {
+              console.warn('⚠️ Advertencia: El secreto para ' + key + ' esta vacio en GitHub Settings');
+              continue;
+            }
+            
+            // Usamos un Regex que busca la palabra sola o entre comillas
+            const regex = new RegExp('[\'\"`]?'+key+'[\'\"`]?', 'g');
+            
+            if (content.includes(key)) {
+              // Reemplazamos la palabra clave por la URL (entre comillas)
+              content = content.replace(regex, \"'\" + value + \"'\");
+              console.log('✅ EXITO: Inyectada URL para: ' + key);
+            } else {
+              console.error('❌ ERROR: No se encontro la palabra ' + key + ' dentro de index.js');
             }
           }
           
           fs.writeFileSync(fileName, content);
+          console.log('--- Proceso Finalizado ---');
           "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
@@ -50,5 +67,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: .
-          branch: gh-pages # La rama donde se publica la web
-          clean: true      # Opcional: limpia archivos viejos antes de subir
+          branch: gh-pages
+          clean: true
