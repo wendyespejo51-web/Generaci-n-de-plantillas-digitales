@@ -40,11 +40,11 @@ jobs:
 
                 Object.entries(replacements).forEach(([key, value]) => {
                   if (value && content.includes(key)) {
-                    // Reemplazamos la palabra clave por la URL con comillas simples
+                    // Quitamos comillas que puedan venir del secreto y ponemos comillas simples limpias
                     const cleanUrl = value.replace(/['"`]/g, '');
-                    content = content.split(key).join(\"'\" + cleanUrl + \"'\");
+                    content = content.split(key).join("'" + cleanUrl + "'");
                     modified = true;
-                    console.log('✅ REEMPLAZADO ' + key + ' en: ' + fullPath);
+                    console.log(`✅ REEMPLAZADO ${key} en: ${fullPath}`);
                   }
                 });
 
