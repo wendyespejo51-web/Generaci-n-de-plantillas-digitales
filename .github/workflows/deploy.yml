@@ -15,8 +15,7 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Solo reemplazamos el texto plano. 
-          # Las comillas que ya están en tu JS se quedarán ahí abrazando la URL.
+          # Buscamos la palabra pura. SED la encontrará aunque esté rodeada de " o '
           sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' index.js
           sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' index.js
           sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' index.js
@@ -24,7 +23,13 @@ jobs:
           sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' index.js
           sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' index.js
           sed -i 's|FLOW_RELLENAR_AJUSTES_RECOMENDADOS|${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}|g' index.js
-
+          
+          # Verificación de seguridad: si la palabra sigue ahí, el comando fallará y nos avisará
+          if grep -q "FLOW_HISTORIAL_REGISTROS" index.js; then
+            echo "ERROR: La palabra clave no fue reemplazada."
+            exit 1
+          fi
+          
       - name: Subir a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
