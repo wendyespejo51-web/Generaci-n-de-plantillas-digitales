@@ -1,23 +1,50 @@
-- name: Reemplazo Seguro con Node
+name: Deploy App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v4
+
+      - name: Reemplazo Seguro con Node
         run: |
           node -e "
           const fs = require('fs');
           const fileName = 'index.js';
           let content = fs.readFileSync(fileName, 'utf8');
           
-          // Traemos el secreto desde el entorno para que sea texto puro
-          const urlHistorial = process.env.URL_HISTORIAL;
-          
-          if (!urlHistorial) {
-            console.error('ERROR: El secreto no llego al script');
-            process.exit(1);
-          }
+          const replacements = {
+            'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
+            'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
+            'FLOW_GENERAR_PLANTILLA_PS': process.env.URL_PS,
+            'FLOW_GENERAR_PLANTILLA_CA': process.env.URL_CA,
+            'FLOW_REGISTROS_DETALLE': process.env.URL_DETALLE,
+            'FLOW_MODIFICAR_REGISTRO_EXISTENTE': process.env.URL_MODIFICA,
+            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
+          };
 
-          // Reemplazo total usando split/join (el metodo mas seguro para caracteres especiales)
-          const newContent = content.split('FLOW_HISTORIAL_REGISTROS').join(urlHistorial);
+          for (const [key, value] of Object.entries(replacements)) {
+            if (value && value.trim().length > 0) {
+              content = content.split(key).join(value);
+              console.log('Inyectada URL para: ' + key);
+            }
+          }
           
-          fs.writeFileSync(fileName, newContent);
-          console.log('Reemplazo completado con exito');
+          fs.writeFileSync(fileName, content);
           "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
+          URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
+          URL_PS: ${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}
+          URL_CA: ${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}
+          URL_DETALLE: ${{ secrets.FLOW_REGISTROS_DETALLE }}
+          URL_MODIFICA: ${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}
+          URL_AJUSTES: ${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}
+
+      - name: Deploy a GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
