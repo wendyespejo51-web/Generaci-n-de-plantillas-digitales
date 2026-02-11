@@ -15,8 +15,8 @@ jobs:
 
       - name: Inyectar URLs de Power Automate
         run: |
-          # Usamos comillas dobles para que el secreto se lea bien, 
-          # pero buscamos la palabra clave sin comillas para que sea total el reemplazo.
+          # Solo reemplazamos el texto plano. 
+          # Las comillas que ya están en tu JS se quedarán ahí abrazando la URL.
           sed -i 's|FLOW_GENERAR_PLANTILLA_PP|${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}|g' index.js
           sed -i 's|FLOW_GENERAR_PLANTILLA_PS|${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}|g' index.js
           sed -i 's|FLOW_GENERAR_PLANTILLA_CA|${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}|g' index.js
