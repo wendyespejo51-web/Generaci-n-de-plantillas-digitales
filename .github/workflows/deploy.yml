@@ -1,38 +1,75 @@
-- name: Reemplazo con Diagnóstico Forzado
+name: Deploy App
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v4
+
+      - name: Reemplazo Seguro (Rastreo Multicarpeta)
         shell: node {0}
         run: |
           const fs = require('fs');
-          const fileName = 'index.js';
-          
-          if (!fs.existsSync(fileName)) {
-            console.log('❌ ERROR: No se encuentra index.js en la raiz');
-            process.exit(1);
+          const path = require('path');
+
+          const replacements = {
+            'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
+            'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
+            'FLOW_GENERAR_PLANTILLA_PS': process.env.URL_PS,
+            'FLOW_GENERAR_PLANTILLA_CA': process.env.URL_CA,
+            'FLOW_REGISTROS_DETALLE': process.env.URL_DETALLE,
+            'FLOW_MODIFICAR_REGISTRO_EXISTENTE': process.env.URL_MODIFICA,
+            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
+          };
+
+          function walkAndReplace(dir) {
+            const files = fs.readdirSync(dir);
+            files.forEach(file => {
+              const fullPath = path.join(dir, file);
+              if (fs.statSync(fullPath).isDirectory()) {
+                if (file !== 'node_modules' && file !== '.git') {
+                  walkAndReplace(fullPath);
+                }
+              } else if (file.endsWith('.js')) {
+                let content = fs.readFileSync(fullPath, 'utf8');
+                let modified = false;
+
+                Object.entries(replacements).forEach(([key, value]) => {
+                  if (value && content.includes(key)) {
+                    // Quitamos comillas que puedan venir del secreto y ponemos comillas simples limpias
+                    const cleanUrl = value.replace(/['"`]/g, '');
+                    content = content.split(key).join("'" + cleanUrl + "'");
+                    modified = true;
+                    console.log(`✅ REEMPLAZADO ${key} en: ${fullPath}`);
+                  }
+                });
+
+                if (modified) {
+                  fs.writeFileSync(fullPath, content);
+                }
+              }
+            });
           }
 
-          let content = fs.readFileSync(fileName, 'utf8');
-          console.log('Tamaño del archivo:', content.length, 'caracteres');
-
-          const key = 'FLOW_HISTORIAL_REGISTROS';
-          const value = process.env.URL_HISTORIAL;
-
-          if (content.includes(key)) {
-            console.log('✅ EXITO: Palabra encontrada. Reemplazando...');
-            const cleanUrl = value.replace(/['"`]/g, '');
-            // Reemplazo total
-            const newContent = content.split(key).join("'" + cleanUrl + "'");
-            fs.writeFileSync(fileName, newContent);
-            
-            // Verificación final
-            const verify = fs.readFileSync(fileName, 'utf8');
-            if (!verify.includes(key)) {
-              console.log('🚀 VERIFICADO: La palabra ya no existe en el archivo.');
-            }
-          } else {
-            console.log('❌ ERROR CRITICO: La palabra FLOW_HISTORIAL_REGISTROS no existe en index.js');
-            // Imprimimos un pedazo del archivo para ver qué hay
-            console.log('Muestra del contenido (lineas 5160-5190):');
-            console.log(content.substring(content.indexOf('fetch') - 50, content.indexOf('fetch') + 100));
-            process.exit(1); // Esto hará que la Action falle (se ponga roja)
-          }
+          console.log('--- Iniciando búsqueda en todo el proyecto ---');
+          walkAndReplace('.');
+          console.log('--- Fin del proceso ---');
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
+          URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
+          URL_PS: ${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}
+          URL_CA: ${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}
+          URL_DETALLE: ${{ secrets.FLOW_REGISTROS_DETALLE }}
+          URL_MODIFICA: ${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}
+          URL_AJUSTES: ${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}
+
+      - name: Deploy a GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
+          branch: gh-pages
+          clean: true
