@@ -10,12 +10,11 @@ jobs:
       - name: Checkout del codigo
         uses: actions/checkout@v4
 
-      - name: Reemplazo Seguro (Fuerza Bruta)
+      - name: Reemplazo Seguro (Rastreo Multicarpeta)
         shell: node {0}
         run: |
           const fs = require('fs');
-          const fileName = 'index.js';
-          let content = fs.readFileSync(fileName, 'utf8');
+          const path = require('path');
 
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
@@ -27,21 +26,38 @@ jobs:
             'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
           };
 
-          console.log('--- Iniciando Reemplazo ---');
-          
-          Object.entries(replacements).forEach(([key, value]) => {
-            if (value && value.length > 10) {
-              const cleanUrl = value.replace(/['"`]/g, '');
-              // REEMPLAZO CLAVE:
-              // Buscamos la palabra suelta y la convertimos en una URL con comillas
-              // Ejemplo: fetch(FLOW_HISTORIAL_REGISTROS) -> fetch('https://...')
-              content = content.split(key).join("'" + cleanUrl + "'");
-              console.log('✅ ' + key + ' inyectado correctamente');
-            }
-          });
+          function walkAndReplace(dir) {
+            const files = fs.readdirSync(dir);
+            files.forEach(file => {
+              const fullPath = path.join(dir, file);
+              if (fs.statSync(fullPath).isDirectory()) {
+                if (file !== 'node_modules' && file !== '.git') {
+                  walkAndReplace(fullPath);
+                }
+              } else if (file.endsWith('.js')) {
+                let content = fs.readFileSync(fullPath, 'utf8');
+                let modified = false;
 
-          fs.writeFileSync(fileName, content);
-          console.log('--- Archivo guardado ---');
+                Object.entries(replacements).forEach(([key, value]) => {
+                  if (value && content.includes(key)) {
+                    // Reemplazamos la palabra clave por la URL con comillas simples
+                    const cleanUrl = value.replace(/['"`]/g, '');
+                    content = content.split(key).join(\"'\" + cleanUrl + \"'\");
+                    modified = true;
+                    console.log('✅ REEMPLAZADO ' + key + ' en: ' + fullPath);
+                  }
+                });
+
+                if (modified) {
+                  fs.writeFileSync(fullPath, content);
+                }
+              }
+            });
+          }
+
+          console.log('--- Iniciando búsqueda en todo el proyecto ---');
+          walkAndReplace('.');
+          console.log('--- Fin del proceso ---');
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
           URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
