@@ -8484,7 +8484,7 @@ document.getElementById("enviarBtn").addEventListener("click", (e) => {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
     ],
-    "FLOW_GENERAR_PLANTILLA_CA"
+    "FLOW_GENERAR_PLANTILLA_PP"
   );
 });
 
@@ -8575,7 +8575,7 @@ if (btnEnviarParte3) {
       "Pregunta4","Pregunta5","Pregunta6","Pregunta7","Pregunta8","Pregunta9","Pregunta10","Pregunta11","Pregunta12","Pregunta13","Pregunta14","Pregunta15","Pregunta16","Pregunta17","Pregunta18","Pregunta19","Pregunta20","Pregunta21","Pregunta22",
       "Pregunta23","Pregunta24","Pregunta25","Pregunta26","Pregunta27","Pregunta28","Pregunta29","Pregunta30","Pregunta31","TipoProteccion","OtrasObservaciones","Nombre1","CodigoLDS1","Nombre2","CodigoLDS2","Correo1","Correo2"
       ],
-      "FLOW_GENERAR_PLANTILLA_CA"
+      "FLOW_GENERAR_PLANTILLA_PP"
     );
 
     const camposChecklistPreguntas = [
@@ -8607,6 +8607,7 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
     );
 
 });
+
 
 
 
