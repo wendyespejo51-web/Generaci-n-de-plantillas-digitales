@@ -48,3 +48,7 @@ jobs:
 
       - name: Deploy a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ..
+          branch: gh-pages # La rama donde se publica la web
+          clean: true      # Opcional: limpia archivos viejos antes de subir
