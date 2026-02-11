@@ -17,9 +17,9 @@ jobs:
         run: |
           node -e "
           const fs = require('fs');
-          let content = fs.readFileSync('index.js', 'utf8');
+          const path = 'index.js';
+          let content = fs.readFileSync(path, 'utf8');
           
-          // Definimos los secretos desde el entorno
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
             'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
@@ -31,14 +31,13 @@ jobs:
           };
 
           for (const [key, value] of Object.entries(replacements)) {
-            if (value && value.length > 10) {
-              console.log('Inyectando URL para: ' + key);
-              // Usamos split/join para evitar problemas con caracteres especiales como '&'
+            if (value && value.trim().length > 0) {
+              console.log('Reemplazando: ' + key);
               content = content.split(key).join(value);
             }
           }
           
-          fs.writeFileSync('index.js', content);
+          fs.writeFileSync(path, content);
           "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
