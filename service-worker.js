@@ -1,4 +1,4 @@
-const CACHE_VERSION = '1.1.2'; // Cambiar el ultimo digito despues de cada actualización
+const CACHE_VERSION = '1.1.3'; // Cambiar el ultimo digito despues de cada actualización
 const CACHE_NAME = `mi-app-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
@@ -61,6 +61,7 @@ self.addEventListener('fetch', event => {
   event.respondWith(fetch(event.request));
 
 });
+
 
 
 
