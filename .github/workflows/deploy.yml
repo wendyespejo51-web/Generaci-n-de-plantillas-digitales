@@ -21,7 +21,7 @@ jobs:
           sed -i 's|"FLOW_GENERAR_PLANTILLA_PS"|"${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}"|g' index.js
           sed -i 's|"FLOW_GENERAR_PLANTILLA_CA"|"${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}"|g' index.js
           sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' index.js
-          sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' nombre_de_tu_archivo.js
+          sed -i 's|FLOW_REGISTROS_DETALLE|${{ secrets.FLOW_REGISTROS_DETALLE }}|g' index.js
           sed -i 's|FLOW_MODIFICAR_REGISTRO_EXISTENTE|${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}|g' index.js
           sed -i 's|"FLOW_RELLENAR_AJUSTES_RECOMENDADOS"|"${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}"|g' index.js
 
