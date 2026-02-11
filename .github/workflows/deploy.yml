@@ -1,55 +1,40 @@
-name: Deploy Web Segura
+name: Deploy con Diagnostico
 on:
   push:
-    branches: ["main"] # Se activa al subir cambios a main
-
-permissions:
-  contents: write # Permiso para crear la rama de publicación
+    branches: [ main ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout del código
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v3
 
-      - name: Inyectar URLs de Power Automate
+      - name: Diagnostico y Reemplazo
         run: |
-          node -e "
-          const fs = require('fs');
-          const path = 'index.js';
-          let content = fs.readFileSync(path, 'utf8');
+          echo "--- REVISANDO ARCHIVOS ---"
+          ls -R
           
-          const replacements = {
-            'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
-            'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
-            'FLOW_GENERAR_PLANTILLA_PS': process.env.URL_PS,
-            'FLOW_GENERAR_PLANTILLA_CA': process.env.URL_CA,
-            'FLOW_REGISTROS_DETALLE': process.env.URL_DETALLE,
-            'FLOW_MODIFICAR_REGISTRO_EXISTENTE': process.env.URL_MODIFICA,
-            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
-          };
+          echo "--- PROBANDO SECRETO (No se mostrara el valor real) ---"
+          if [ -z "${{ secrets.FLOW_HISTORIAL_REGISTROS }}" ]; then
+            echo "ERROR: El secreto FLOW_HISTORIAL_REGISTROS esta vacio o no existe en Settings"
+            exit 1
+          fi
 
-          for (const [key, value] of Object.entries(replacements)) {
-            if (value && value.trim().length > 0) {
-              console.log('Reemplazando: ' + key);
-              content = content.split(key).join(value);
-            }
-          }
+          echo "--- EJECUTANDO REEMPLAZO ---"
+          # Usamos un comando mas agresivo
+          sed -i 's|FLOW_HISTORIAL_REGISTROS|${{ secrets.FLOW_HISTORIAL_REGISTROS }}|g' index.js
           
-          fs.writeFileSync(path, content);
-          "
-        env:
-          URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
-          URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
-          URL_PS: ${{ secrets.FLOW_GENERAR_PLANTILLA_PS }}
-          URL_CA: ${{ secrets.FLOW_GENERAR_PLANTILLA_CA }}
-          URL_DETALLE: ${{ secrets.FLOW_REGISTROS_DETALLE }}
-          URL_MODIFICA: ${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}
-          URL_AJUSTES: ${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}
-          
-      - name: Subir a GitHub Pages
+          echo "--- VERIFICANDO SI LA PALABRA SIGUE AHI ---"
+          if grep -q "FLOW_HISTORIAL_REGISTROS" index.js; then
+            echo "ERROR: La palabra no se pudo reemplazar"
+            exit 1
+          else
+            echo "EXITO: La palabra fue reemplazada en index.js"
+          fi
+
+      - name: Deploy a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: . 
-          branch: gh-pages # Esta es la rama que "servirá" la web final
+          folder: .
+          branch: gh-pages
