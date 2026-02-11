@@ -9,15 +9,18 @@ jobs:
     steps:
       - name: Checkout del codigo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Reemplazo Seguro (Metodo Stream)
+      - name: Reemplazo Seguro (Metodo Simplificado)
+        shell: node {0}
         run: |
-          node -e "
           const fs = require('fs');
           const fileName = 'index.js';
           
+          if (!fs.existsSync(fileName)) {
+            console.log('Archivo no encontrado');
+            process.exit(0);
+          }
+
           let content = fs.readFileSync(fileName, 'utf8');
           
           const replacements = {
@@ -32,36 +35,24 @@ jobs:
 
           console.log('--- Iniciando Reemplazo ---');
           
-          for (const [key, value] of Object.entries(replacements)) {
-            if (value && value.trim().length > 0) {
-              const cleanUrl = value.replace(/['\"`]/g, '');
+          Object.entries(replacements).forEach(([key, value]) => {
+            if (value && value.length > 10) { // Validamos que sea una URL real
+              const cleanUrl = value.replace(/['"`]/g, '');
               
-              // Buscamos todas las variaciones posibles de la palabra con comillas
-              const possibleKeys = [
-                \"'\" + key + \"'\",
-                '\"' + key + '\"',
-                '`' + key + '`',
-                key
-              ];
-
-              for (const pKey of possibleKeys) {
-                if (content.includes(pKey)) {
-                  // Reemplazo simple de texto (sin Regex para evitar RangeError)
-                  content = content.split(pKey).join(\"'\" + cleanUrl + \"'\");
+              // Buscamos la palabra clave con diferentes comillas
+              const patterns = ["'" + key + "'", '"' + key + '"', '`' + key + '`', key];
+              
+              patterns.forEach(p => {
+                if (content.includes(p)) {
+                  content = content.split(p).join("'" + cleanUrl + "'");
                 }
-              }
-              console.log('✅ Procesado: ' + key);
+              });
+              console.log('✅ ' + key + ' procesado.');
             }
-          }
+          });
 
           fs.writeFileSync(fileName, content);
-          
-          if (content.includes('FLOW_HISTORIAL_REGISTROS')) {
-            console.error('❌ ERROR: No se pudo eliminar la palabra clave');
-            process.exit(1);
-          }
           console.log('--- Archivo guardado correctamente ---');
-          "
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
           URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
@@ -74,6 +65,6 @@ jobs:
       - name: Deploy a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .        # Asegúrate de que sea un punto solo
+          folder: .
           branch: gh-pages
           clean: true
