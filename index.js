@@ -6900,38 +6900,28 @@ function limpiarFormulario() {
 // =============================================
   function inicializarFormulario(modo = "nuevo") {
 
+    // =============================================
+    // 1. GENERAR DATOS INICIALES EN NUEVO REGISTRO
+    // =============================================
+
         if (modo === "nuevo") {
-            const prefijoCodigo = obtenerPrefijoDesdeCard();
-            const codigo = generarCodigoUnico(prefijoCodigo);
-            document.getElementById("CodigoUnico").value = codigo;
-            document.getElementById("CodigoUnicoCA").value = codigo;
 
-            inicializarFechaYSemana("fecha", "semana");
-            inicializarFechaYSemana("fechaCA", "SemanaCA");
-            inicializarFechaYSemana("fechaPS", "SemanaPS");
-        }
+      const prefijoCodigo = obtenerPrefijoDesdeCard();
+      const codigo = generarCodigoUnico(prefijoCodigo);
 
-        // =============================================
-        // 1. GENERAR DATOS INICIALES
-        // =============================================
-        const prefijoCodigo = obtenerPrefijoDesdeCard();
-        const codigo = generarCodigoUnico(prefijoCodigo);
-        document.getElementById("CodigoUnico").value = codigo;
-        document.getElementById("CodigoUnicoCA").value = codigo;
-        //document.getElementById("CodigoUnicoPS").value = codigo;
+      document.getElementById("CodigoUnico").value = codigo;
+      document.getElementById("CodigoUnicoCA").value = codigo;
 
-        inicializarFechaYSemana("fecha", "semana");
-        inicializarFechaYSemana("fechaCA", "SemanaCA");
-        inicializarFechaYSemana("fechaPS", "SemanaPS");
+      inicializarFechaYSemana("fecha", "semana");
+      inicializarFechaYSemana("fechaCA", "SemanaCA");
+      inicializarFechaYSemana("fechaPS", "SemanaPS");
 
-        // =============================
-        // 2. 🔥 GENERAR PREFIJO PS AL FINAL
-        // =============================
-        const vistaActivaPS = document.querySelector(".view.active-view");
+      const vistaActivaPS = document.querySelector(".view.active-view");
 
-        if (vistaActivaPS && vistaActivaPS.id === "viewPuestaServicio") {
-          generarCodigoPuestaServicio();
-        }
+      if (vistaActivaPS && vistaActivaPS.id === "viewPuestaServicio") {
+        generarCodigoPuestaServicio();
+      }
+   }
 
         // =============================================
         // 2. DETECTAR QUÉ PLANTILLA FUE SELECCIONADA
@@ -7021,17 +7011,20 @@ function limpiarFormulario() {
             }
           }
 
-          // Escuchar cambios
+          // ❌ quitar listeners antiguos
+          selectEquipo.removeEventListener("change", actualizarCampoSed);
+          selectEquipo.removeEventListener("change", actualizarVisibilidadNodoFinal);
+
+          // ✅ volver a registrar listeners limpios
           selectEquipo.addEventListener("change", actualizarCampoSed);
-
-          // Estado inicial
-          actualizarCampoSed();
-
-          // Cuando el usuario cambia el equipo
           selectEquipo.addEventListener("change", actualizarVisibilidadNodoFinal);
 
-          // Estado inicial
+          // ✅ aplicar estado inicial
+          actualizarCampoSed();
           actualizarVisibilidadNodoFinal();
+
+          // ✅ forzar ejecución final
+          selectEquipo.dispatchEvent(new Event("change"));
 
             // Ocultar campos exclusivos de PS
             document.querySelectorAll(".only-for-ps").forEach(el => {
@@ -7047,8 +7040,6 @@ function limpiarFormulario() {
         else if (selectedPdf === "Puestaenservicioderele.pdf") {
 
             formularioSeleccionado = "Puestaenservicioderele.pdf";
-
-            //tipoPlantilla.value = "2";
 
             document.getElementById("viewPuestaServicio").classList.add("active-view");
             activarVista("viewPuestaServicio");
@@ -7073,10 +7064,14 @@ function limpiarFormulario() {
             }
 
             // Escuchar cambios
+            selectEquipoPS.removeEventListener("change", actualizarCampoRC);
             selectEquipoPS.addEventListener("change", actualizarCampoRC);
 
             // Estado inicial
             actualizarCampoRC();
+
+            // Forzar un change adicional
+            selectEquipoPS.dispatchEvent(new Event("change"));
 
             //Cambiar tipo de campos (Select a Text, Text a Select)
             activarSelectConOtros({
@@ -7212,17 +7207,20 @@ function limpiarFormulario() {
             }
           }
 
-        // Escuchar cambios
+        // ❌ quitar listeners antiguos
+        selectEquipoCA.removeEventListener("change", actualizarCampoCodigo);
+        selectEquipoCA.removeEventListener("change", actualizarVisibilidadNodoFinalCA);
+
+        // ✅ volver a registrar listeners limpios
         selectEquipoCA.addEventListener("change", actualizarCampoCodigo);
-
-        // Estado inicial
-        actualizarCampoCodigo();
-
-        // Cuando el usuario cambia el equipo
         selectEquipoCA.addEventListener("change", actualizarVisibilidadNodoFinalCA);
 
-        // Estado inicial
+        // ✅ aplicar estado inicial
+        actualizarCampoCodigo();
         actualizarVisibilidadNodoFinalCA();
+
+        // Forzar un change adicional
+        selectEquipoCA.dispatchEvent(new Event("change"));
 
         }
     }
@@ -8607,6 +8605,7 @@ document.getElementById("enviarBtn3").addEventListener("click", (e) => {
     );
 
 });
+
 
 
 
