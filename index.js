@@ -9536,7 +9536,7 @@ async function procesarYComprimirImagen(file) {
 // FUNCION PARA ENVIAR FOTOS A FLUJO SECUNDARIO
 async function enviarFotosRegistro() {
 
-  const urlFlujoFotos = FLOW_ENVIAR_FOTOS_FORMULARIO_PP;
+  const urlFlujoFotos = 'https://default1c0051dd45964b1a9849d060735057.69.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/68a3f3f7ff1b4609b97a70996fedd2dc/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=__wToqbjNYac8YuIHNfj6cz_EhBv4JvQcXqwa0IGJos';
 
   // Obtenemos los valores originales
   const enlaceOriginal = document.getElementById("enlace")?.value || "";
