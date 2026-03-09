@@ -23,7 +23,8 @@ jobs:
             'FLOW_GENERAR_PLANTILLA_CA': process.env.URL_CA,
             'FLOW_REGISTROS_DETALLE': process.env.URL_DETALLE,
             'FLOW_MODIFICAR_REGISTRO_EXISTENTE': process.env.URL_MODIFICA,
-            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES
+            'FLOW_RELLENAR_AJUSTES_RECOMENDADOS': process.env.URL_AJUSTES,
+            'FLOW_ENVIAR_FOTOS_FORMULARIO_PP': process.env.URL_FOTOS
           };
 
           function walkAndReplace(dir) {
@@ -66,6 +67,7 @@ jobs:
           URL_DETALLE: ${{ secrets.FLOW_REGISTROS_DETALLE }}
           URL_MODIFICA: ${{ secrets.FLOW_MODIFICAR_REGISTRO_EXISTENTE }}
           URL_AJUSTES: ${{ secrets.FLOW_RELLENAR_AJUSTES_RECOMENDADOS }}
+          URL_FOTOS: ${{ secrets.FLOW_ENVIAR_FOTOS_FORMULARIO_PP }}
 
       - name: Deploy a GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
