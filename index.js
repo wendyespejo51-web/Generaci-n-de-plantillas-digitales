@@ -9644,13 +9644,13 @@ async function enviarFotosRegistro() {
     const fotoProcesada = await procesarYComprimirImagen(input.files[0]);
 
     const codigoLimpio = CodigoUnico.replace(/\D/g,"");
-    const celdaLimpia = Celda === "-" ? "" : "Celda" + Celda;
+    //const celdaLimpia = Celda === "-" ? "" : "Celda" + Celda;
     const idLimpio = id.replace(/^foto/i,"");
 
     const nombreArchivo = [
       codigoLimpio,
       enlaceNormalizado,
-      celdaLimpia,
+      //celdaLimpia,
       idLimpio
     ].filter(Boolean).join("_") + ".jpg";
 
