@@ -1,4 +1,4 @@
-const CACHE_VERSION = '1.2.3'; // Cambiar el ultimo digito despues de cada actualización
+const CACHE_VERSION = '1.2.4'; // Cambiar el ultimo digito despues de cada actualización
 const CACHE_NAME = `mi-app-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
