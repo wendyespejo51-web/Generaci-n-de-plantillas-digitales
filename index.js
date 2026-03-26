@@ -2190,6 +2190,16 @@ const listaNodosIniciales = [
     "CEPS90042",
     "CEPS90043",
     "CEPS90047",
+    "01441SB1", 
+    "01441SB2", 
+    "01877SB1", 
+    "01877SB2", 
+    "01924SB1", 
+    "01924SB2", 
+    "01807SB1", 
+    "01807SB2", 
+    "01657SB1", 
+    "01657SB2"
 ];
 
 // NODOFINAL y NodofinalCA son nodos finales, usan la misma lista.
@@ -5792,12 +5802,24 @@ const listaNodosFinales = [
     "15031T",
     "14329T",
     "30326A",
-    "Barra 1",
-    "Barra 2",
-    "TRF10/2.3kV (Lado 2.3 kV)",
-    "TRF10/2.3kV (Lado 10 kV)",
-    "TRF22.9/10kV (Lado 10 kV)",
-    "TRF22.9/10kV (Lado 22.9 kV)",
+    "TRF10_2.3KV-2.3KV",
+    "TRF10_2.3KV-10KV",
+    "TRF22.9_10KV-10KV",
+    "TRF22.9_10KV-22.9KV",
+    "TRF1_22.9_10KV-10KV",
+    "TRF2_22.9_10KV-10KV",
+    "TRF1_22.9_10KV-22.9KV",
+    "TRF2_22.9_10KV-22.9KV",
+    "01441SB1",
+    "01441SB2",
+    "01877SB1",
+    "01877SB2",
+    "01924SB1",
+    "01924SB2",
+    "01807SB1",
+    "01807SB2",
+    "01657SB1",
+    "01657SB2"
 
 ];
 
@@ -7551,16 +7573,6 @@ function obtenerPrefijoDesdeCard() {
         if (prefijo === "3") return "CA";
         return ""; // Valor por defecto si no coincide
     }
-
-function filtrarSoloNumerosInput(input) {
-
-  if (!input) return;
-
-  input.addEventListener("input", function () {
-    this.value = this.value.replace(/[^0-9]/g, "");
-  });
-
-}
 
 //FILTRAR INPUT TEXT DE SED Y CODIGO
 function limpiarNumeroEquipo(valor) {
