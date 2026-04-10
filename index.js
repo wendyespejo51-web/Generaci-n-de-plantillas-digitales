@@ -9746,20 +9746,19 @@ async function enviarFormulario(btn, campos, urlFlujo, enviarFotos=false, campos
       camposEnBlanco.forEach(id => {
         datos[id] = "";
       });
-    } 
-
-    function limpiarDraftsFormulario(){
-
-    Object.keys(localStorage).forEach(key=>{
-      if(key.startsWith("formulario_draft_")){
-        localStorage.removeItem(key);
-      }
-    });
-  }
+    }
 
     // Enviar fotos solo si el formulario lo requiere. Solo aplica para formulario PP
-    if(enviarFotos){
-      await enviarFotosRegistro();
+    if (enviarFotos) {
+    enviarFotosRegistro()
+        .then(() => {
+            mostrarMensaje("📷 Fotos enviadas correctamente");
+        })
+        .catch((err) => {
+            console.error("Error fotos:", err);
+            mostrarMensaje("❌ Error al enviar las fotos", "error");
+        });
+      // NOTA: Sin 'await enviarFotosRegistro()' para no bloquear el envío de los 300 campos.
     }
 
     const response = await fetch(urlFlujo, {
@@ -9795,8 +9794,10 @@ async function enviarFormulario(btn, campos, urlFlujo, enviarFotos=false, campos
         if (typeof inicializarFechaYSemana === "function") inicializarFechaYSemana("fechaPS", "SemanaPS");
       }
       // 👇 Luego de enviar, volver a la vista principal
-      //mainTabs.classList.remove("hidden-tabs");
-      //header.classList.remove("hidden");
+      btnFormatos.classList.add("active");
+      btnFormatos.classList.remove("inactive");
+      btnHistorial.classList.remove("active");
+      btnHistorial.classList.add("inactive");
       activarVista("viewFormatos");
     } else {
       mostrarMensaje("❌ Error al enviar datos", "error");
