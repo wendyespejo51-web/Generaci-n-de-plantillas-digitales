@@ -16,7 +16,7 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
-          const targetFile = path.join('js', 'endpoints.js');
+          const targetFile = path.join('js', 'config', 'endpoints.js');
 
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
