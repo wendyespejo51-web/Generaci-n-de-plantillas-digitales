@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pruebas y cambios de ajuste de la protección</title>
+  <link rel="stylesheet" href="preview-CA.css?v=1.0.9">
+  <link rel="manifest" href="/Generaci-n-de-plantillas-digitales/manifest.json">
+</head>
+<body>
+
+<div id="modalPrevia" class="modal-previa hidden">
+    
+    <div class="hoja-digital-wrapper">
+
+  <div id="previaCambioAjuste" class="hoja-digital plantilla-previa hidden">
+    <div class="header-ajuste">
+        <table class="tabla-protocolo">
+            <tr>
+                <td style="background:#ffff99"><strong>Alimentador:</strong> <span class="preview-field" data-sync="Alimentador"></span></td>
+                <td style="background:#ffff99"><strong>Subestacion:</strong> <span class="preview-field" data-sync="codigo"></span></td>
+                <td style="background:#ffff99"><strong>Circuito:</strong> <span class="preview-field" data-sync="CircuitoCA"></span></td>
+                <td style="background:#ffff99"><strong>Celda:</strong> <span class="preview-field" data-sync="celdaCA"></span></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="grid-ajuste-superior">
+        <table class="tabla-protocolo tabla-superior-unificada">
+        <tr>
+        <td rowspan="2" class="label-lateral bg-amarillo-fuerte">
+            TRANSFORMADORES DE CORRIENTE Y TENSIÓN
+        </td>
+        <td class="bg-verde-claro"><strong>TRANSFORMADOR DE CORRIENTE</strong></td>
+        <td class="bg-verde-claro"><strong>TRANSFORMADOR DE TENSIÓN</strong></td>
+        </tr>
+        <tr>
+        <td class="celda-datos">
+            <div class="flex-row"><span>DE MEDICIÓN DE FASES</span> <span class="preview-field" data-sync="MedicionFasesTC1"></span> <span> / </span> <span class="preview-field" data-sync="MedicionFasesTC2"></span> <span>Amp</span></div>
+            <div class="linea-punteada"></div>
+            <div class="flex-row"><span>DE MEDICIÓN HOMOPOLAR</span> <span class="preview-field" data-sync="MedicionHomopolarTC1"></span> <span> / </span> <span class="preview-field" data-sync="MedicionHomopolarTC1"></span> <span>Amp</span></div>
+        </td>
+        <td class="celda-datos">
+            <div class="flex-row"><span>DE MEDICIÓN DE FASES</span> <span class="preview-field" data-sync="MedicionFasesTT1"></span> <span> / </span> <span class="preview-field" data-sync="MedicionFasesTT2"></span> <span>V</span></div>
+            <div class="linea-punteada"></div>
+            <div class="flex-row"><span>DE MEDICIÓN HOMOPOLAR</span> <span class="preview-field" data-sync="MedicionHomopolarTT1"></span> <span> / </span> <span class="preview-field" data-sync="MedicionHomopolarTT2"></span> <span>V</span></div>
+        </td>
+        </tr>
+        <tr>
+        <td class="label-lateral bg-amarillo-fuerte">
+            CARACTERÍSTICAS DEL RELÉ
+        </td>
+        <td class="celda-datos">
+            <div class="campo-dato"><strong>Marca:</strong> <span class="preview-field" data-sync="MarcaCA"></span></div>
+            <div class="campo-dato"><strong>In: Fases</strong> <span class="box" data-sync="InFasesCA"></span> <strong>Neutro</strong> <span class="box" data-sync="InNeutroCA"></span></div>
+            <div class="campo-dato"><strong>N° Fábrica</strong> <span class="preview-field" data-sync="NFabrica"></span></div>
+            <div class="campo-dato"><strong>N° Kardex</strong> <span class="preview-field" data-sync="NKardexCA"></span></div>
+        </td>
+        <td class="celda-datos">
+            <div class="campo-dato"><strong>Modelo:</strong> <span class="preview-field" data-sync="ModeloCA"></span></div>
+            <div class="campo-dato"><strong>Vn:</strong> <span class="preview-field" data-sync="VnReleCA"></span></div>
+            <div class="campo-dato"><strong>N° de Catálogo:</strong> <span class="preview-field" data-sync="NCatalogo"></span></div>
+            <div class="campo-dato"><strong>Tension Alimentacion:</strong> <span class="preview-field" data-sync="TensionAlimentacionCA"></span></div>
+        </td>
+        </tr>
+        </table>
+    </div>
+
+    <table class="tabla-protocolo tabla-funciones-ajuste">
+        <thead>
+            <tr style="background:#eee">
+                <th style="width: 25%;">Descripcion de las Funciones</th>
+                <th style="width: 20%;">Parametros</th>
+                <th style="width: 15%;">Valores</th>
+                <th style="width: 15%;">Ajuste Solicitado</th>
+                <th style="width: 15%;">Ajuste Realizado</th>
+                <th>Observaciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">SOBRECORRIENTE DE FASES<br><small>DPHLPDOC1 / 3I> -> (1) / 67-1 (1)</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType51PRealizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observaciones51P"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,05 - 2,5</td>
+                <td><span class="preview-field" data-sync="StartValue51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue51PRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier Setting</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time51PRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,04 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime51PRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode51PRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic51PRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Min Operate Voltage (Vn)</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage51PSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage51PRealizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">SOBRECORRIENTE DE FASES<br><small>DPHLPDOC2 / 3I> -> (2) / 67-1 (2)</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType50P2Realizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observaciones50P2"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,05 - 5</td>
+                <td><span class="preview-field" data-sync="StartValue50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue50P2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time50P2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,04 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime50P2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode50P2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic50P2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Min Operate Voltage (Vn)</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage50P2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage50P2Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">SOBRECORRIENTE DE FASES<br><small>DPHHPDOC1 / 3I>> -> / 67-2</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType50P3Realizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observaciones50P3"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,1 - 40</td>
+                <td><span class="preview-field" data-sync="StartValue50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue50P3Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time50P3Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,04 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime50P3Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode50P3Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic50P3Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Min Operate Voltage (Vn)</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage50P3Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage50P3Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="2" class="bold-text">SOBRECORRIENTE DE FASES<br><small>PHIPTOC1 / 3I>>> / 50P/51P</small></td>
+                <td>Start Value</td>
+                <td class="center-text">0,1 - 40</td>
+                <td><span class="preview-field" data-sync="StartValue50P1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue50P1Realizado"></span></td>
+                <td rowspan="2"><span class="preview-field" data-sync="Observacion50P1"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,04 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime50P1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime50P1Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">FALLA A TIERRA<br><small>DEFLPDEF1 / Io> -> (1) / 67N-1 (1)</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType67N1Realizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observacion67N1"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,01 - 5</td>
+                <td><span class="preview-field" data-sync="StartValue67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue67N1Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time67N1Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,06 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime67N1Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode67N1Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic67N1Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Voltage Start Value</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage67N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage67N1Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">FALLA A TIERRA<br><small>DEFLPDEF2 / Io> -> (2) / 67N-1 (2)</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType67N2Realizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observacion67N2"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,01 - 5</td>
+                <td><span class="preview-field" data-sync="StartValue67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue67N2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time67N2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,06 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime67N2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode67N2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic67N2Realizado"></span></td>
+            </tr>
+            <tr>
+                <td>Voltage Start Value</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage67N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage67N2Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">FALLA A TIERRA<br><small>DEFHPDEF1 / Io>> -> / 67N-2</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType50NRealizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observacion50N"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,1 - 40</td>
+                <td><span class="preview-field" data-sync="StartValue50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue50NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time50NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,04 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime50NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Directional Mode</td>
+                <td class="center-text">No direc / Forw / Rev</td>
+                <td><span class="preview-field" data-sync="DirectionalMode50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="DirectionalMode50NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Characteristic Angle (deg)</td>
+                <td class="center-text">-179  a  180</td>
+                <td><span class="preview-field" data-sync="Characteristic50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Characteristic50NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Voltage Start Value</td>
+                <td class="center-text">0,01 - 1</td>
+                <td><span class="preview-field" data-sync="Voltage50NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Voltage50NRealizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="7" class="bold-text">FALLA A TIERRA<br><small>EFLPTOC1 / Io> (1) / 51N-1 (1)</small></td>
+                <td>Operating Curve Type</td>
+                <td class="center-text">ANSI / IEC</td>
+                <td><span class="preview-field" data-sync="CurveType51NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="CurveType51NRealizado"></span></td>
+                <td rowspan="7"><span class="preview-field" data-sync="Observaciones51N"></span></td>
+            </tr>
+            <tr>
+                <td>Start Value</td>
+                <td class="center-text">0,1 - 40</td>
+                <td><span class="preview-field" data-sync="StartValue51NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue51NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Time Multiplier (curva)</td>
+                <td class="center-text">0,05 - 15</td>
+                <td><span class="preview-field" data-sync="Time51NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="Time51NRealizado"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0,06 - 2000</td>
+                <td><span class="preview-field" data-sync="DelayTime51NSolicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime51NRealizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="2" class="bold-text">TENSION HOMOPOLAR<br><small>ROVPTOV1 / Uo>  / 59G</small></td>
+                <td>Start Value</td>
+                <td class="center-text">0,01 - 5</td>
+                <td><span class="preview-field" data-sync="StartValue59N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue59N1Realizado"></span></td>
+                <td rowspan="2"><span class="preview-field" data-sync="Observacion59N1"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0 - 600</td>
+                <td><span class="preview-field" data-sync="DelayTime59N1Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="DelayTime59N1Realizado"></span></td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td rowspan="2" class="bold-text">TENSION HOMOPOLAR<br><small>ROVPTOV2 / Uo>>  / 59G-2</small></td>
+                <td>Start Value</td>
+                <td class="center-text">0,01 - 5</td>
+                <td><span class="preview-field" data-sync="StartValue59N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync="StartValue59N2Realizado"></span></td>
+                <td rowspan="2"><span class="preview-field" data-sync="Observacion59N2"></span></td>
+            </tr>
+            <tr>
+                <td>Operate Delay Time (sg)</td>
+                <td class="center-text">0 - 600</td>
+                <td><span class="preview-field" data-sync="DelayTime59N2Solicitado"></span></td>
+                <td><span class="preview-field" data-sync.="DelayTime59N2Realizado"></span></td>
+            </tr>
+            </tbody>
+    </table>
+
+    <div class="footer-firmas">
+        <table class="tabla-protocolo">
+            <tr>
+                <td class="label-footer">ELABORADO POR :</td>
+                <td class="label-footer">REVISADO POR :</td>
+                <td class="label-footer">FECHA :</td>
+            </tr>
+            <tr class="row-firmas">
+                <td>
+                    <span class="preview-field" data-sync="Nombre1CA"></span>
+                </td>
+                <td>
+                    <input type="text" data-sync="revisadoPor" placeholder="-" readonly>
+                </td>
+                <td>
+                    <span class="preview-field" data-sync="fechaCA"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    </div>
+</div>
+
+<script>
+let modoEdicion = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const datos = JSON.parse(localStorage.getItem("datosPreview"));
+
+  console.log("DATOS PREVIEW:", datos);
+
+  // =============================
+  // 🔹 Rellenar datos
+  // =============================
+  document.querySelectorAll("[data-sync]").forEach(el => {
+    const key = el.dataset.sync;
+
+    // =============================
+    // 🔹 Rellenar datos (CA mejorado)
+    // =============================
+    document.querySelectorAll("[data-sync]").forEach(el => {
+
+    const key = el.dataset.sync;
+    const valor = datos?.[key];
+
+    // 🟡 CASO ESPECIAL: Nombre combinado
+    if (key === "Nombre1CA") {
+
+        const nombre1 = datos?.["Nombre1CA"] || "";
+        const nombre2 = datos?.["Nombre2CA"] || "";
+
+        if (!nombre2 || nombre2 === "Trabajo individual") {
+        el.textContent = nombre1 || "—";
+        } else {
+        el.textContent = `${nombre1} - ${nombre2}`;
+        }
+
+        return;
+    }
+
+    // 🟣 CASO NORMAL (todo lo demás igual que antes)
+    el.textContent = valor || "—";
+
+    });
+  });
+
+  // =============================
+  // 🔹 Click en campos (edición)
+  // =============================
+  document.querySelectorAll("[data-sync]").forEach(el => {
+
+    el.addEventListener("click", () => {
+
+      if (!modoEdicion) return;
+
+      const campo = el.dataset.sync;
+
+      window.parent.postMessage({
+        tipo: "editarCampo",
+        campo: campo
+      }, "*");
+
+    });
+
+  });
+
+});
+
+// =============================
+// 🔹 Activar modo edición
+// =============================
+window.addEventListener("message", (event) => {
+  if (event.data === "activarEdicion") {
+    modoEdicion = true;
+    document.body.classList.add("modo-edicion-preview");
+  }
+});
+</script>
+
+</body>
+</html>
