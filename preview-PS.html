@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pruebas y cambios de ajuste de la protección</title>
+  <link rel="stylesheet" href="preview-PS.css?v=1.0.9">
+  <link rel="manifest" href="/Generaci-n-de-plantillas-digitales/manifest.json">
+</head>
+<body>
+
+<div id="modalPrevia" class="modal-previa hidden">
+
+    <div class="hoja-digital reconectador">
+    <div class="main-layout">
+        <div class="diagram-container">
+            <div class="header-left">
+                <div>TENSION: <span class="box-small" data-sync="TensionRC"></span></div>
+                <div>ALIM: <span class="line-input large" data-sync="AlimentadorRC"></span></div>
+                <div>RC: <span class="line-input large" data-sync="RC"></span></div>
+                <div>CIRCUITO: <span class="line-input large" data-sync="CircuitoPS"></span></div>
+                <div>PDS: <span class="line-input large" data-sync="PDS"></span></div>
+            </div>         
+            </div>
+
+        <div class="tables-column">
+            <div class="header-right">
+                <div class="info-row">FECHA: <span class="line-input" data-sync="fechaPS"></span></div>
+                <div class="info-row">HORA: <span class="line-input" data-sync="horaPS"></span></div>
+                <div class="spacer"></div>
+                <div class="info-row">TECNICO: <span class="line-input" data-sync="Nombre1PS"></span></div>
+                <div class="info-row">TECNICO: <span class="line-input" data-sync="Nombre2PS"></span></div>
+            </div>
+            </div>
+    </div>
+
+    <div class="main-layout">
+    <div class="diagram-container">
+    <img src="RC-Oculto.png" class="diagrama-tecnico">
+        
+    <div class="footer-diagrama-flex">
+        <div class="overlay-bt">
+        <div class="check-group">
+        <label><span class="checkbox-box" data-sync="BT"></span> BT</label>
+        </div>
+        </div>
+        
+        <div class="overlay-mt">
+        <div class="check-group">
+        <label><span class="checkbox-box" data-sync="MT"></span> MT</label>
+        </div>
+        </div>
+
+        <div class="tabla-comunicacion-overlay">
+        <div class="tables-column">
+            <table>
+                <tr><th colspan="2">COMUNICACIÓN</th></tr>
+                <tr><td>IP relé</td><td><span data-sync="IPRele"></span></td></tr>
+                <tr><td>IP router</td><td><span data-sync="IPRouter"></span></td></tr>
+                <tr><td>Clave router</td><td><span data-sync="ClaveRouter"></span></td></tr>
+                <tr><td>Clave Wi-Fi</td><td><span data-sync="ClaveWifi"></span></td></tr>
+            </table>
+        </div>
+        </div>
+
+    <div class="checkbox-grid-inner">
+        <div class="check-group">
+            <strong>FUENTE DE ALIMENTACION DE CONTROL</strong>
+            <label><span class="checkbox-box" data-sync="TransformadorPropio"></span> TRANSFORMADOR PROPIO</label>
+            <div class="row-checks">
+                <label><span class="checkbox-box" data-sync="TransformadorPropio"></span> ACEITE</label>
+                <label><span class="checkbox-box" data-sync="TransformadorPropio"></span> SECO</label>
+            </div>
+            <label><span class="checkbox-box" data-sync="ServicioParticular"></span> SERVICIO PARTICULAR</label>
+            <div class="row-checks">
+            <label>
+                <span class="checkbox-box" data-sync="TensionAlimentacionSP" data-opcion="110 AC"></span> 110 AC
+            </label>
+            <label>
+                <span class="checkbox-box" data-sync="TensionAlimentacionSP" data-opcion="220 AC"></span> 220 AC
+            </label>
+            <!-- 🔥 SOLO PARA OTROS -->
+            <span data-sync="TensionAlimentacionSP" data-tipo="otros"></span>
+            </div>
+            <label><span class="checkbox-box" data-sync="AjusteTermicoBT"></span> CORRECTO AJUSTE TERMICO DE BT</label>
+        </div>
+        <div class="check-group">
+            <strong>CONTROL DE RECONECTADOR</strong>
+            <label><span class="checkbox-box" data-sync="Controldereconectador"></span> HORA Y FECHA ACTUALIZADA</label>
+            <label><span class="checkbox-box" data-sync="AjusteProteccionCorrecta"></span> AJUSTE DE PROTECCION CORRECTA</label>
+            <label><span class="checkbox-box" data-sync="BotonOnOff"></span> BOTON ON/OFF DE PROT. BLOQUEADO</label>
+            <label><span class="checkbox-box" data-sync="SujecionCableCA"></span> CORRECTA SUJECION DE CABLE DE ALIMENTACION CA Y CONTROL</label>
+        </div>
+        <div class="check-group">
+            <strong>CONEXIÓN DE PUESTA A TIERRA</strong>
+            <label><span class="checkbox-box" data-sync="TierraMT"></span> A TIERRA MT (Interruptor y TP)</label>
+            <label><span class="checkbox-box" data-sync="TierraBT"></span> A TIERRA BT (Control)</label>
+        </div>
+        <div class="check-group">
+            <strong>TIPO DE TRABAJO</strong>
+            <label><span class="checkbox-box" data-sync="PuestaenServicio"></span> PUESTA EN SERVICIO</label>
+            <label><span class="checkbox-box" data-sync="RevisionPeriodica"></span> REVISION PERIODICA</label>
+            <label><span class="checkbox-box" data-sync="InstalacionComponente"></span> INSTALACION DE COMPONENTE</label>
+            </div>
+        <div class="check-group">
+            <strong>OSCILOGRAFIA Y MEDICION</strong>
+            <label><span class="checkbox-box" data-sync="AjusteOscilografia"></span> CORRECTO AJUSTE DE OSCILOGRAFIA</label>
+            <label><span class="checkbox-box" data-sync="CorrienteHMI"></span> VISUALIZACION DE TENSIONES Y CORRIENTES HMI</label>
+            <label><span class="checkbox-box" data-sync="BotonOnOff2"></span> BOTON ON/OFF PROTECCION BLOQUEADO</label>
+        </div>
+        <div class="check-group">
+            <label><span class="checkbox-box" data-sync="BotonOnOff2"></span> PROTOCOLO</label>
+        </div>
+     </div>
+</div>
+</div>
+
+    <div class="tables-column">
+        <table class="tabla-datos">
+            <tr><th colspan="2">INTERRUPTOR</th></tr>
+            <tr><td>Marca</td><td><span data-sync="MarcaRC"></span></td></tr>
+            <tr><td>Capacidad</td><td><span data-sync="CapacidadRC"></span></td></tr>
+            <tr><td>Cap. Rupt.</td><td><span data-sync="CapRupturaRC"></span></td></tr>
+            <tr><td>M. extinsion</td><td><span data-sync="MExtinsionRC"></span></td></tr>
+            <tr><td>N° Serie</td><td><span data-sync="NSerieRC"></span></td></tr>
+            <tr><td>T nominal</td><td><span data-sync="TNominalRC"></span></td></tr>
+            <tr><td>Posición de int. Fuente / carga</td><td><span data-sync="FuenteCargaRC"></span></td></tr>
+            <tr><td>Secuencia de fases</td><td><span data-sync="SecuenciaFasesRC"></span></td></tr>
+            <tr><td>Año</td><td><span data-sync="AnoRC"></span></td></tr>
+            <tr><td>Kardex</td><td><span data-sync="Kardex1RC"></span></td></tr>
+        </table>
+
+        <table class="tabla-datos">
+            <tr><th colspan="2">RELE PROTECCIÓN</th></tr>
+            <tr><td>Marca</td><td><span data-sync="MarcaPS"></span></td></tr>
+            <tr><td>Modelo</td><td><span data-sync="ModeloReleRC"></span></td></tr>
+            <tr><td>N° Serie</td><td><span data-sync="NSerieReleRC"></span></td></tr>
+            <tr><td>Alim. De control Vca</td><td><span data-sync="AlimentacionControlRele"></span></td></tr>
+            <tr><td>Kardex</td><td><span data-sync="Kardex2RC"></span></td></tr>
+        </table>
+
+        <div class="titulo-seccion">AJUSTES DE PROTECCIÓN</div>
+        
+        <div class="ajustes-grid">
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">51/50P</th></tr>
+                <tr><td>I></td><td><span data-sync="I5150P"></span></td></tr>
+                <tr><td>Curva</td><td><span data-sync="Curva5150P"></span></td></tr>
+                <tr><td>T></td><td><span data-sync="T5150P"></span></td></tr>
+                <tr><td>I>></td><td><span data-sync="I5150P2"></span></td></tr>
+                <tr><td>T>></td><td><span data-sync="T5150P2"></span></td></tr>
+            </table>
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">67P-1</th></tr>
+                <tr><td>67P-1</td><td><span data-sync="Funcion67P1"></span></td></tr>
+                <tr><td>Curva</td><td><span data-sync="Curva67P1"></span></td></tr>
+                <tr><td>Direc</td><td><span data-sync="Direc67P1"></span></td></tr>
+                <tr><td>Ang.</td><td><span data-sync="Ang67P1"></span></td></tr>
+                <tr><td>T67P-1</td><td><span data-sync="T67P1"></span></td></tr>
+            </table>
+
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">67N-1</th></tr>
+                <tr><td>Io>-></td><td><span data-sync="Io67N1"></span></td></tr>
+                <tr><td>Curva</td><td><span data-sync="Curva67N1"></span></td></tr>
+                <tr><td>For-Rev/Sen-Cos</td><td><span data-sync="ForRev67N1"></span></td></tr>
+                <tr><td>Ang</td><td><span data-sync="Ang67N1"></span></td></tr>
+                <tr><td>To></td><td><span data-sync="To67N1"></span></td></tr>
+                <tr><td>3v0</td><td><span data-sync="Funcion3v067N1"></span></td></tr>
+            </table>
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">51/50N</th></tr>
+                <tr><td>Io></td><td><span data-sync="Io5150N"></span></td></tr>
+                <tr><td>Curva</td><td><span data-sync="Curva5150N"></span></td></tr>
+                <tr><td>T0></td><td><span data-sync="T05150N"></span></td></tr>
+                <tr><td>Io>></td><td><span data-sync="Io5150N2"></span></td></tr>
+                <tr><td>To>></td><td><span data-sync="To5150N2"></span></td></tr>
+            </table>
+
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">67N-2</th></tr>
+                <tr><td>Io>-></td><td><span data-sync="Io67N2"></span></td></tr>
+                <tr><td>Curva</td><td><span data-sync="Curva67N2"></span></td></tr>
+                <tr><td>For-Rev/Sen-Cos</td><td><span data-sync="ForRev67N2"></span></td></tr>
+                <tr><td>Ang</td><td><span data-sync="Ang67N2"></span></td></tr>
+                <tr><td>To></td><td><span data-sync="To67N2"></span></td></tr>
+                <tr><td>3v0</td><td><span data-sync="Funcion3v067N2"></span></td></tr>
+            </table>
+            <table class="tabla-ajuste">
+                <tr><th colspan="2">59N</th></tr>
+                <tr><td>3vo</td><td><span data-sync="Funcion3vo59N"></span></td></tr>
+                <tr><td>T></td><td><span data-sync="T59N"></span></td></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+    <div class="observaciones">
+        <strong>OBSERVACIONES:</strong>
+        <div class="observaciones-box" data-sync="ObservacionesRC"></div>
+    </div>
+</div>
+
+</div>
+
+<script>
+let modoEdicion = false;
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const datos = JSON.parse(localStorage.getItem("datosPreview"));
+
+  console.log("DATOS PREVIEW:", datos);
+
+  // =============================
+  // 🔹 Rellenar datos
+  // =============================
+ document.querySelectorAll("[data-sync]").forEach(el => {
+
+  const key = el.dataset.sync;
+  const valor = datos?.[key];
+
+  // ============================
+  // 🔴 CASO 1: TransformadorPropio
+  // ============================
+  if (key === "TransformadorPropio") {
+
+    const opcion = el.dataset.opcion;
+    const texto = el.parentElement.textContent.toUpperCase();
+
+    if (opcion) {
+      // 🔥 versión PRO (si usas data-opcion)
+      el.textContent = valor === opcion ? "X" : "";
+    } else {
+      // 🔥 fallback con texto (tu lógica actual)
+      if (valor === "Aceite" && texto.includes("ACEITE")) {
+        el.textContent = "X";
+      } else if (valor === "Seco" && texto.includes("SECO")) {
+        el.textContent = "X";
+      } else if ((valor === "Aceite" || valor === "Seco") && texto.includes("TRANSFORMADOR PROPIO")) {
+        el.textContent = "X";
+      } else {
+        el.textContent = "";
+      }
+    }
+
+    return;
+  }
+
+  // ============================
+  // 🔴 CASO 2: TensionAlimentacionSP
+  // ============================
+  if (key === "TensionAlimentacionSP") {
+
+    const opcion = el.dataset.opcion;
+    const tipo = el.dataset.tipo;
+
+    // ✔ checkboxes (110 / 220)
+    if (opcion) {
+      el.textContent = valor === opcion ? "X" : "";
+      return;
+    }
+
+    // ✔ otros (texto libre)
+    if (tipo === "otros") {
+      if (valor !== "110 AC" && valor !== "220 AC") {
+        el.textContent = valor || "";
+      } else {
+        el.textContent = "";
+      }
+      return;
+    }
+  }
+
+  // ============================
+  // 🟢 CASO 3: Checkbox simple (Si/No)
+  // ============================
+  if (el.classList.contains("checkbox-box")) {
+    el.textContent = valor === "Si" ? "X" : "";
+    return;
+  }
+
+  // ============================
+  // 🟣 CASO 4: Texto normal
+  // ============================
+  el.textContent = valor || "—";
+
+});
+
+  // =============================
+  // 🔹 Click en campos (edición)
+  // =============================
+  document.querySelectorAll("[data-sync]").forEach(el => {
+
+    el.addEventListener("click", () => {
+
+      if (!modoEdicion) return;
+
+      const campo = el.dataset.sync;
+
+      window.parent.postMessage({
+        tipo: "editarCampo",
+        campo: campo
+      }, "*");
+
+    });
+
+  });
+
+});
+
+// =============================
+// 🔹 Activar modo edición
+// =============================
+window.addEventListener("message", (event) => {
+  if (event.data === "activarEdicion") {
+    modoEdicion = true;
+    document.body.classList.add("modo-edicion-preview");
+  }
+});
+</script>
+
+</body>
+</html>
