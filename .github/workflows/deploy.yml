@@ -16,6 +16,8 @@ jobs:
           const fs = require('fs');
           const path = require('path');
 
+          const targetFile = path.join('js', 'endpoints.js');
+
           const replacements = {
             'FLOW_HISTORIAL_REGISTROS': process.env.URL_HISTORIAL,
             'FLOW_GENERAR_PLANTILLA_PP': process.env.URL_PP,
@@ -27,38 +29,30 @@ jobs:
             'FLOW_ENVIAR_FOTOS_FORMULARIO_PP': process.env.URL_FOTOS
           };
 
-          function walkAndReplace(dir) {
-            const files = fs.readdirSync(dir);
-            files.forEach(file => {
-              const fullPath = path.join(dir, file);
-              if (fs.statSync(fullPath).isDirectory()) {
-                if (file !== 'node_modules' && file !== '.git') {
-                  walkAndReplace(fullPath);
-                }
-              } else if (file.endsWith('.js')) {
-                let content = fs.readFileSync(fullPath, 'utf8');
-                let modified = false;
+          if (fs.existsSync(targetFile)) {
+            let content = fs.readFileSync(targetFile, 'utf8');
+            let modified = false;
 
-                Object.entries(replacements).forEach(([key, value]) => {
-                  if (value && content.includes(key)) {
-                    // Quitamos comillas que puedan venir del secreto y ponemos comillas simples limpias
-                    const cleanUrl = value.replace(/['"`]/g, '');
-                    content = content.split(key).join("'" + cleanUrl + "'");
-                    modified = true;
-                    console.log(`✅ REEMPLAZADO ${key} en: ${fullPath}`);
-                  }
-                });
-
-                if (modified) {
-                  fs.writeFileSync(fullPath, content);
-                }
+            Object.entries(replacements).forEach(([key, value]) => {
+              if (value && content.includes(key)) {
+                // Limpieza de comillas y reemplazo
+                const cleanUrl = value.replace(/['"`]/g, '');
+                content = content.split(key).join("'" + cleanUrl + "'");
+                modified = true;
+                console.log(`✅ REEMPLAZADO ${key} en: ${targetFile}`);
               }
             });
-          }
 
-          console.log('--- Iniciando búsqueda en todo el proyecto ---');
-          walkAndReplace('.');
-          console.log('--- Fin del proceso ---');
+               if (modified) {
+              fs.writeFileSync(targetFile, content);
+              console.log('--- Archivo endpoints.js actualizado con éxito ---');
+            } else {
+              console.log('⚠️ No se encontraron claves para reemplazar en endpoints.js');
+            }
+          } else {
+            console.error(`❌ Error: No se encontró el archivo en ${targetFile}`);
+            process.exit(1);
+          }
         env:
           URL_HISTORIAL: ${{ secrets.FLOW_HISTORIAL_REGISTROS }}
           URL_PP: ${{ secrets.FLOW_GENERAR_PLANTILLA_PP }}
