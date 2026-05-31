@@ -2321,6 +2321,11 @@ function guardarProgresoFormulario() {
   const inputs = document.querySelectorAll(
     vistas.map(v => `#${v} input, #${v} textarea, #${v} select`).join(',')
   );
+
+  console.log("FORMKEY:", formKey);
+  console.log("VISTAS:", vistas);
+  console.log("INPUTS ENCONTRADOS:", inputs.length);
+  
   const data = {};
 
   inputs.forEach(el => {
