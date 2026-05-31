@@ -990,10 +990,6 @@ function actualizarVisibilidadSegunPlantilla() {
         .forEach(el => el.classList.remove("activo"));
     }
 
-      console.log("ENTRO AL BLOQUE EDICION");
-      console.log("Tipo:", registroEnEdicion.tipo);
-      console.log("Equipo:", document.getElementById("equipo")?.value);
-
       //return; // 🔥 IMPORTANTE: cortar aquí
     }
   }
@@ -1034,8 +1030,6 @@ function actualizarVisibilidadSegunPlantilla() {
   });
 
   // --- 🆕 CONTROL DE FOTOS PANORÁMICAS SEGÚN EQUIPO ---
-
-  console.log("LLEGUE A CONTROL PANORAMICAS");
 
   const equipoSeleccionado = document.getElementById("equipo")?.value;
 
@@ -3766,6 +3760,12 @@ function restaurarFormulario() {
       if (typeof restaurarCamposCriticos === "function") {
         restaurarCamposCriticos(data);
       }
+
+      console.log("========== RESTAURACION ==========");
+      console.log("modoEdicionActivo:", window.modoEdicionActivo);
+      console.log("registroEnEdicion:", registroEnEdicion);
+      console.log("registroEnEdicion.tipo:", registroEnEdicion?.tipo);
+      console.log("=================================");
 
       actualizarVisibilidadSegunPlantilla();
       actualizarCampoSed();
