@@ -994,7 +994,7 @@ function actualizarVisibilidadSegunPlantilla() {
       console.log("Tipo:", registroEnEdicion.tipo);
       console.log("Equipo:", document.getElementById("equipo")?.value);
 
-      return; // 🔥 IMPORTANTE: cortar aquí
+      //return; // 🔥 IMPORTANTE: cortar aquí
     }
   }
 
