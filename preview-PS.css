@@ -196,7 +196,7 @@
 /* Estilo para la Tabla Encima de la Imagen */
 .tabla-comunicacion-overlay {
     position: absolute;
-    bottom: 70%;  /* Ajusta según la altura deseada */
+    bottom: 72%;  /* Ajusta según la altura deseada */
     right: 6%;   /* La mueve a la derecha del poste */
     background: white; /* Importante para que no se trasluzca la imagen */
 }
@@ -219,12 +219,12 @@
 
 /* Coordenadas para BT y MT (ajustar según el dibujo) */
 .overlay-bt {
-    bottom: 64%;
+    bottom: 68%;
     left: 14%;
 }
 
 .overlay-mt {
-    bottom: 64%;
+    bottom: 68%;
     left: 70%;
 }
 
