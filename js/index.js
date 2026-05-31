@@ -2194,8 +2194,6 @@ function aplicarDatos(data) {
 
       el.value = valor;
 
-      el.value = valor;
-
       if (key === "FRTiempo67N11") {
       
         console.log("DESPUES DE ASIGNAR:");
