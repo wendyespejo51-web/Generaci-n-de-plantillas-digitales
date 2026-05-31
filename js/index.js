@@ -2184,7 +2184,25 @@ function aplicarDatos(data) {
         valor = normalizarNumero(valor);
       }
 
+      if (key === "FRTiempo67N11") {
+
+      console.log("ANTES DE ASIGNAR:");
+      console.log("valor =", valor);
+      console.log("tipo input =", el.type);
+    
+    }
+
       el.value = valor;
+
+      el.value = valor;
+
+      if (key === "FRTiempo67N11") {
+      
+        console.log("DESPUES DE ASIGNAR:");
+        console.log("input.value =", el.value);
+      
+      }
+      
     }
   }
 
