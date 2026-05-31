@@ -1035,6 +1035,8 @@ function actualizarVisibilidadSegunPlantilla() {
 
   // --- 🆕 CONTROL DE FOTOS PANORÁMICAS SEGÚN EQUIPO ---
 
+  console.log("LLEGUE A CONTROL PANORAMICAS");
+
   const equipoSeleccionado = document.getElementById("equipo")?.value;
 
   const esEquipoMT =
@@ -1050,8 +1052,6 @@ function actualizarVisibilidadSegunPlantilla() {
   ];
 
   if (grupoPanoramicas) {
-
-    console.log("LLEGUE A CONTROL PANORAMICAS");
 
     if (esEquipoMT) {
 
