@@ -2412,6 +2412,7 @@ async function cargarDatosFormulario(id, tipo) {
 async function abrirFormulario1ParaEdicion() {
 
   window.modoEdicionActivo = true;
+  localStorage.setItem("modoEdicionActivo", "true");
 
   localStorage.removeItem('formulario_draft_' + window.currentView);
 
@@ -3630,6 +3631,12 @@ function restaurarFormulario() {
 
     data = JSON.parse(datosGuardados);
     console.log("📦 Datos encontrados en localStorage:", data);
+
+    if (localStorage.getItem("modoEdicionActivo") === "true") {
+      window.modoEdicionActivo = true;
+    
+      console.log("🔄 Estado edición restaurado");
+    }
 
   } catch(e) {
     console.warn("⚠️ Error leyendo draft del localStorage:", e);
