@@ -2145,16 +2145,6 @@ function aplicarDatos(data) {
   for (const key of Object.keys(data)) {
 
     const el = document.getElementById(key);
-
-    if (key === "FRTiempo67N11") {
-      console.log("ELEMENTO ENCONTRADO:", el);
-    }
-
-    if (key === "FRTiempo67N11" && el) {
-      console.log("TIPO:", el.type);
-      console.log("TAG:", el.tagName);
-    }
-    
     if (!el) continue;
 
     let valor = data[key];
@@ -2194,22 +2184,7 @@ function aplicarDatos(data) {
         valor = normalizarNumero(valor);
       }
 
-      if (key === "FRTiempo67N11") {
-
-      console.log("ANTES DE ASIGNAR:");
-      console.log("valor =", valor);
-      console.log("tipo input =", el.type);
-    
-    }
-
       el.value = valor;
-
-      if (key === "FRTiempo67N11") {
-      
-        console.log("DESPUES DE ASIGNAR:");
-        console.log("input.value =", el.value);
-      
-      }
       
     }
   }
@@ -2258,13 +2233,13 @@ async function rellenarFormularioDinamico(data) {
   }
 
   // 🔥 SOLO EN MODO EDICIÓN — normalizar después del cambio de tipo
-  if (window.modoEdicionActivo) {
-    document.querySelectorAll('input[type="number"]').forEach(el => {
-      if (el.value) {
-        el.value = normalizarNumero(el.value);
-      }
-    });
-  }
+  //if (window.modoEdicionActivo) {
+    //document.querySelectorAll('input[type="number"]').forEach(el => {
+      //if (el.value) {
+        //el.value = normalizarNumero(el.value);
+      //}
+    //});
+  //}
 
   console.log("Formulario rellenado completamente");
 
