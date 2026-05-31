@@ -1,7 +1,8 @@
 // Toda la configuración y mapeo de campos de tus 3 formularios
 
 export const mapaFormularios = {
-  form1: ["viewParte1", "viewParte2", "viewParte3", "viewParte4", "viewParteChecklist"],
+  form1: ["viewParte1", "viewParte2", "viewParte3", "viewParte4"],
+  form1_checklist: ["viewParte1", "viewParte2", "viewParte3", "viewParte4", "viewParteChecklist"],
   form2: ["viewPuestaServicio"],
   form3: ["viewCambioAjuste", "viewCambioAjuste2"]
 };
