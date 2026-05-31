@@ -1013,36 +1013,21 @@ function actualizarVisibilidadSegunPlantilla() {
   });
 
   // --- 🆕 GESTIÓN DE OBLIGATORIEDAD (Solo para FORMPROTOCOLOPRUEBA) ---
-  //idsFotos.forEach(id => {
-    //const inputFoto = document.getElementById(id);
-    //if (inputFoto) {
-      //if (window.modoEdicionActivo && registroEnEdicion?.tipo === "FORMPROTOCOLOPRUEBA") {
-        // En EDICIÓN: Dejan de ser obligatorios
-        //inputFoto.required = false;
-      //} else if (mostrar) {
-        // En NUEVO REGISTRO: Son obligatorios si el protocolo está activo
-        //inputFoto.required = true;
-      //} else {
-        // Si no se muestra el protocolo, no son obligatorios
-        //inputFoto.required = false;
-      //}
-    //}
-  //});
-
   idsFotos.forEach(id => {
-  const inputFoto = document.getElementById(id);
-  if (inputFoto) {
-    if (window.modoEdicionActivo) {
-      inputFoto.required = false;
-      console.log("NO REQUIRED:", id);
-    } else if (mostrar) {
-      inputFoto.required = true;
-      console.log("REQUIRED:", id);
-    } else {
-      inputFoto.required = false;
+    const inputFoto = document.getElementById(id);
+    if (inputFoto) {
+      if (window.modoEdicionActivo && registroEnEdicion?.tipo === "FORMPROTOCOLOPRUEBA") {
+        // En EDICIÓN: Dejan de ser obligatorios
+        inputFoto.required = false;
+      } else if (mostrar) {
+         //En NUEVO REGISTRO: Son obligatorios si el protocolo está activo
+        inputFoto.required = true;
+      } else {
+         //Si no se muestra el protocolo, no son obligatorios
+        inputFoto.required = false;
+      }
     }
-  }
-});
+  });
 
   // --- 🆕 CONTROL DE FOTOS PANORÁMICAS SEGÚN EQUIPO ---
 
@@ -2429,6 +2414,15 @@ async function abrirFormulario1ParaEdicion() {
   window.modoEdicionActivo = true;
   localStorage.setItem("modoEdicionActivo", "true");
 
+  localStorage.setItem(
+    "registroEnEdicion",
+    JSON.stringify({
+      id: registroEnEdicion.id,
+      tipo: registroEnEdicion.tipo,
+      lista: registroEnEdicion.lista
+    })
+  );
+
   localStorage.removeItem('formulario_draft_' + window.currentView);
 
   const vista = "viewParte1";
@@ -3647,11 +3641,21 @@ function restaurarFormulario() {
     data = JSON.parse(datosGuardados);
     console.log("📦 Datos encontrados en localStorage:", data);
 
-    if (localStorage.getItem("modoEdicionActivo") === "true") {
-      window.modoEdicionActivo = true;
+    const registroGuardado =
+      localStorage.getItem("registroEnEdicion");
     
+    if (registroGuardado) {
+    
+      registroEnEdicion =
+        JSON.parse(registroGuardado);
+    
+      window.modoEdicionActivo = true;
+
       console.log("🔄 Estado edición restaurado");
     }
+
+    console.log("registro restaurado:", registroEnEdicion);
+    console.log("tipo restaurado:", registroEnEdicion?.tipo);
 
   } catch(e) {
     console.warn("⚠️ Error leyendo draft del localStorage:", e);
