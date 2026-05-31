@@ -990,6 +990,10 @@ function actualizarVisibilidadSegunPlantilla() {
         .forEach(el => el.classList.remove("activo"));
     }
 
+      console.log("ENTRO AL BLOQUE EDICION");
+      console.log("Tipo:", registroEnEdicion.tipo);
+      console.log("Equipo:", document.getElementById("equipo")?.value);
+
       return; // 🔥 IMPORTANTE: cortar aquí
     }
   }
@@ -1046,6 +1050,8 @@ function actualizarVisibilidadSegunPlantilla() {
   ];
 
   if (grupoPanoramicas) {
+
+    console.log("LLEGUE A CONTROL PANORAMICAS");
 
     if (esEquipoMT) {
 
