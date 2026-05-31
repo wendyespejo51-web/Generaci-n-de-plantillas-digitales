@@ -2167,11 +2167,10 @@ function aplicarDatos(data) {
     console.log("Procesando campo:", key, "valor:", valor);
 
     if (
-      (el.type === "number" || el.getAttribute("inputmode") === "numeric") &&
-      key !== "sed" &&
-      key !== "codigo"
+      (key === "sed" || key === "codigo") &&
+      equipoEsMT
     ) {
-      el.value = normalizarNumero(valor);
+      valor = normalizarNumero(valor);
     }
     else if (el.type === "checkbox") {
       el.checked = Boolean(valor);
