@@ -4770,6 +4770,10 @@ function abrirPreviewEnModal(formKey) {
 
   const datos = obtenerDatosFormularioCompleto(formKey);
 
+  console.log("FORMKEY:", formKey);
+  console.log("DATOS GENERADOS:", datos);
+  console.log("TOTAL CAMPOS:", Object.keys(datos).length);
+
   window.currentPreviewForm = formKey;
 
   localStorage.setItem("datosPreview", JSON.stringify(datos));
