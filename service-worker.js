@@ -1,4 +1,4 @@
-const CACHE_VERSION = '1.2.9'; //Aumentar el ultimo digito en cada actualización del codigo HTML, CSS y JavaScript (JS)
+const CACHE_VERSION = '1.3.0'; //Aumentar el ultimo digito en cada actualización del codigo HTML, CSS y JavaScript (JS)
 const CACHE_NAME = `mi-app-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
